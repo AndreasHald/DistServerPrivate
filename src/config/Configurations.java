@@ -10,11 +10,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Configurations {
-    private String host;
-    private String port;
-    private String username;
-    private String dbname;
-    private String password;
+    private String host = "localhost";
+    private String port = "3306";
+    private String username = "root";
+    private String dbname = "localhost";
+    private String password = "";
 
     // FFkey is used in Encryption.java
     private String ffcryptkey = "3.1470";
@@ -27,7 +27,6 @@ public class Configurations {
 
     // Opret DB name
     // Opret update time på QOTD
-
 
     public String getHost() {
         return host;
@@ -78,7 +77,7 @@ public class Configurations {
     }
 
 
-// Weather settrs and getters.
+// Weather setters and getters.
 
     public String getWeather_expiration_time() {
         return weather_expiration_time;

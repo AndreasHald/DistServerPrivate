@@ -1,7 +1,3 @@
-CREATE DATABASE IF NOT EXISTS cbscalendar;
-use cbscalendar;
-SET SESSION FOREIGN_KEY_CHECKS=0;
-
 /* Create Tables */
 
 CREATE TABLE IF NOT EXISTS Calender
@@ -93,7 +89,7 @@ CREATE TABLE IF NOT EXISTS users
 	userid int NOT NULL AUTO_INCREMENT,
 	email varchar(40) NOT NULL,
 	active boolean,
-	created datetime NOT NULL DEFAULT NOW(),
+	created datetime NOT NULL DEFAULT(),
 	password varchar(200) NOT NULL,
 	PRIMARY KEY (userid)
 );
