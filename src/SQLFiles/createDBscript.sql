@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS notes
 (
 	noteId int NOT NULL AUTO_INCREMENT,
 	eventId int NOT NULL,
+	permission int NOT NULL,
 	createdBy varchar(255) NOT NULL,
 	text text,
 	dateTime datetime NOT NULL,

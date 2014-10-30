@@ -12,7 +12,9 @@ public class TCPClient {
 		Gson gson = new GsonBuilder().create();
 		
 		AuthUser A = new AuthUser();
-		A.setAuthUserEmail("test email");
+		WeatherInfo w = new WeatherInfo();
+		
+		A.setAuthUserEmail("mikkel.frid@live.dk");
 		String gsonString = gson.toJson(A);
 		System.out.println(A);
 		System.out.println(gsonString);

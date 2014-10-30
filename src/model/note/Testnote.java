@@ -11,9 +11,11 @@ public class Testnote {
 		String cb = "createdBy din mor haha";
 		int ia = 1;
 		int eID = 11;
+		int aID = 1;
+		int pID = 1;
 		
 		Note note = new Note();
-		note.CreateNote(nID, text, date, cb, ia, eID);
-		note.DeleteNote(nID);
+		note.CreateNote(nID, text, date, cb, ia, eID, pID);
+		note.DeleteNote(nID, pID);
 	}
 }
