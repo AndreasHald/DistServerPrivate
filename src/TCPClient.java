@@ -14,7 +14,7 @@ public class TCPClient {
 		AuthUser A = new AuthUser();
 		A.setAuthUserEmail("admin@admin.dk");
 		A.setAuthUserIsAdmin(false);
-		A.setAuthUserPassword("1234");
+		A.setAuthUserPassword("d6YSr320JnLXlp8YYxUcNQ==");
 		String gsonString = gson.toJson(A);
 		System.out.println(A);
 		System.out.println(gsonString);
