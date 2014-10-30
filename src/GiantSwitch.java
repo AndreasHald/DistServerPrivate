@@ -1,4 +1,8 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import model.QOTD.QOTDModel;
 import model.calendar.Event;
@@ -10,6 +14,7 @@ import JsonClasses.DeleteCalender;
 
 import com.google.gson.*;
 
+import config.Configurations;
 import databaseMethods.SwitchMethods;
 
 public class GiantSwitch {
@@ -42,13 +47,16 @@ public class GiantSwitch {
 		/**********
 		 ** LOGIN **
 		 **********/
-		case "logIn":
+		case "logIn": // ANDREAS ARBEJDER HER
 			
 			AuthUser AU = (AuthUser)gson.fromJson(jsonString, AuthUser.class);
-			//System.out.println("Recieved logIn");
-			//answer = SW.authenticate(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsAdmin());
-			
-			answer = AU.getAuthUserEmail();
+			System.out.println("Recieved logIn");
+			try {
+				answer = SW.authenticate(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsAdmin());
+			} catch (Exception e) {
+				answer = "Sql Error";
+				e.printStackTrace();
+			}
 			
 			
 			break;

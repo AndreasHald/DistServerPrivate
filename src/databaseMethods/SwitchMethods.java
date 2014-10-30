@@ -141,6 +141,7 @@ public class SwitchMethods extends Model
 		resultSet = qb.selectFrom(keys, "users").where("email", "=", email).ExecuteQuery();
 
 		// Hvis en bruger med forespurgt email findes
+			
 		if (resultSet.next()){
 
 			// Hvis brugeren er aktiv
@@ -149,19 +150,21 @@ public class SwitchMethods extends Model
 				// Hvis passwords matcher
 				if(resultSet.getString("password").equals(password))
 				{
-					int userID = resultSet.getInt("userid");
-
-					String[] key = {"type"};
-
-					resultSet = qb.selectFrom(key, "roles").where("userid", "=", new Integer(userID).toString()).ExecuteQuery();
-
+					return "0";
+					// DU BLIVER LOGGET IND MEN CHECKER IKKE OM DU ER ADMIN
+					
+					//int userID = resultSet.getInt("userid");
+					//String[] key = {"type"};
+					//resultSet = qb.selectFrom(key, "roles").where("userid", "=", new Integer(userID).toString()).ExecuteQuery();
 					// Hvis brugeren baade logger ind og er registreret som admin, eller hvis brugeren baade logger ind og er registreret som bruger
-					if((resultSet.getString("type").equals("admin") && isAdmin) || (resultSet.getString("type").equals("user") && !isAdmin))
-					{
-						return "0"; // returnerer "0" hvis bruger/admin er godkendt
-					} else {
-						return "4"; // returnerer fejlkoden "4" hvis brugertype ikke stemmer overens med loginplatform
-					}
+					// DER ER FEJL HERNEDE! 
+					//if((resultSet.getString("type").equals("admin") && isAdmin) || (resultSet.getString("type").equals("user") && !isAdmin))
+					//{
+					//	return "0"; // returnerer "0" hvis bruger/admin er godkendt
+					//} else {
+					//	return "4"; // returnerer fejlkoden "4" hvis brugertype ikke stemmer overens med loginplatform
+					//}
+					
 				} else {
 					return "3"; // returnerer fejlkoden "3" hvis password ikke matcher
 				}
