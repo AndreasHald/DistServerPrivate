@@ -77,11 +77,11 @@ public class GiantSwitch {
 			
 			break;
 			
-		case "getCalender":
+		case "getCalender": 
 			System.out.println("Recieved getCalender");
 			break;
 
-		case "getEvents":
+		case "getEvents": // PHILIP arbejder på denne funktion
 			System.out.println("Recieved getEvents");
 			break;
 
