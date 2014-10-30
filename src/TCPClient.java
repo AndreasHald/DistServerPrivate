@@ -10,15 +10,14 @@ public class TCPClient {
 	public static void main(String[] args) throws Exception {
 		String modifiedSentence;
 		Gson gson = new GsonBuilder().create();
-		CreateCalender CC = new CreateCalender();
-		CC.setCalenderName("Din mors kalender2");
-		CC.setPublicOrPrivate(1);
-		CC.setUserName("John");
-		String gsonString = gson.toJson(CC);
-		System.out.println(CC);
+		
+		AuthUser A = new AuthUser();
+		A.setAuthUserEmail("test email");
+		String gsonString = gson.toJson(A);
+		System.out.println(A);
 		System.out.println(gsonString);
 
-		Socket clientSocket = new Socket("localhost", 8888);
+		Socket clientSocket = new Socket("172.17.163.86", 8888);
 		DataOutputStream outToServer = new DataOutputStream(
 				clientSocket.getOutputStream());
 		byte[] input = gsonString.getBytes();

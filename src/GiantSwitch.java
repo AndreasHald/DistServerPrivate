@@ -43,9 +43,14 @@ public class GiantSwitch {
 		 ** LOGIN **
 		 **********/
 		case "logIn":
+			
 			AuthUser AU = (AuthUser)gson.fromJson(jsonString, AuthUser.class);
-			System.out.println("Recieved logIn");
-			answer = SW.authenticate(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsAdmin());
+			//System.out.println("Recieved logIn");
+			//answer = SW.authenticate(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsAdmin());
+			
+			answer = AU.getAuthUserEmail();
+			
+			
 			break;
 
 		case "logOut":
