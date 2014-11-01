@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS events
 	type int NOT NULL,
 	location int,
 	createdby int NOT NULL,
-	start datetime NOT NULL default NOW(),
-	end datetime NOT NULL default NOW(),
+	startTime datetime NOT NULL,
+	endTime datetime NOT NULL,
 	name varchar(0) NOT NULL,
 	text text NOT NULL,
 	-- Decides wether the event is an import-event or user created
@@ -127,6 +127,8 @@ INSERT INTO `cbscalendar`.`events`
 (
 `type`,
 `createdby`,
+`start`,
+`end`,
 `name`,
 `text`,
 `customevent`,
@@ -135,6 +137,8 @@ VALUES
 (
 1,
 1,
+2014-11-01 00:00:00.000,
+2014-11-02 00:00:00.000,
 "test",
 "beskrivelse af test event",
 false,

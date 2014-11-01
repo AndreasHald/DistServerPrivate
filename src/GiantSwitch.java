@@ -91,6 +91,13 @@ public class GiantSwitch {
 
 		case "getEvents":
 			System.out.println("Recieved getEvents");
+			Event GE = (Event)gson.fromJson(jsonString, Event.class);
+			try {
+				answer = SW.getEvent(GE.getCalendarID());
+			} catch (Exception e) {
+				answer = "Sql Error";
+				e.printStackTrace();
+			}
 			break;
 
 		case "createEvent":

@@ -16,11 +16,22 @@ public class Event {
     private String createdby;
     private ArrayList<String> start;
     private ArrayList<String> end;
+    private String CalendarID;
 
     // Settere og gettere for Event objektet 
     public void setActivityid(String activityid){
         this.activityid = activityid;
     }
+    
+    public String getCalendarID()
+    {
+    	return CalendarID;
+    }
+    public void setCalendarID(String CalendarID)
+    {
+    	this.CalendarID = CalendarID;
+    }
+    
     public String getActivityid(){
         return activityid;
     }

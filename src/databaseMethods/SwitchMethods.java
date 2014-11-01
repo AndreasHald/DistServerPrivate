@@ -1,5 +1,8 @@
 package databaseMethods;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.print.attribute.DateTimeSyntax;
 
 import model.Model;
 import model.QOTD.QOTDModel;
@@ -121,6 +124,31 @@ public class SwitchMethods extends Model
 		return stringToBeReturend;
 	}
 	
+	
+	public String getEvent(String CalendarID) throws SQLException
+	{	
+		qb = new QueryBuilder();
+		
+		resultSet = qb.selectFrom("events").where("CalendarID", "=", CalendarID).ExecuteQuery();
+		
+		if (resultSet.next())
+		{
+			String reply = resultSet.getString("type");
+			reply += resultSet.getString("title");
+			reply += resultSet.getString("description");
+			reply += resultSet.getString("location");
+			reply += resultSet.getString("createdby");
+			reply += resultSet.getString("description");
+			reply += resultSet.getString("start");
+			reply += resultSet.getString("end");
+			
+			return reply;
+		}
+		else
+		{
+			return "The Calendar doens't exist";
+		}
+	}
 	
 	// Metoden faar email og password fra switchen (udtrukket fra en json) samt en boolean der skal saettes til true hvis det er serveren der logger paa, og false hvis det er en klient
 	/**
