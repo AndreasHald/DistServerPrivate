@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS notes
 	eventId int NOT NULL,
 	createdBy varchar(255) NOT NULL,
 	text text,
-	dateTime datetime NOT NULL,
-	active bit,
+	dateTime datetime NOT NULL default NOW(),
+	active int NOT NULL,
 	PRIMARY KEY (noteid)
 );
 
@@ -226,18 +226,6 @@ CREATE TABLE IF NOT EXISTS locationdata
 	PRIMARY KEY (locationdataid)
 );
 
-
-CREATE TABLE IF NOT EXISTS notes
-(
-	noteid int NOT NULL AUTO_INCREMENT,
-	eventid int NOT NULL,
-	createdby int NOT NULL,
-	text text,
-	created datetime NOT NULL,
-	PRIMARY KEY (noteid)
-);
-
-
 CREATE TABLE IF NOT EXISTS roles
 (
 	roleid int NOT NULL AUTO_INCREMENT,
@@ -281,12 +269,6 @@ ALTER TABLE userevents
 	ON UPDATE RESTRICT
 ;
 
-
-ALTER TABLE notes
-	ADD FOREIGN KEY (eventid)
-	REFERENCES events (eventid)
-	ON UPDATE RESTRICT
-;
 
 
 ALTER TABLE events
