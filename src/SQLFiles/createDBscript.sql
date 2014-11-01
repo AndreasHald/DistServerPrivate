@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS events
 	type int NOT NULL,
 	location int,
 	createdby int NOT NULL,
-	start datetime NOT NULL,
-	end datetime NOT NULL,
+	start datetime NOT NULL default NOW(),
+	end datetime NOT NULL default NOW(),
 	name varchar(0) NOT NULL,
 	text text NOT NULL,
 	-- Decides wether the event is an import-event or user created
@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS notes
 	eventId int NOT NULL,
 	createdBy varchar(255) NOT NULL,
 	text text,
-	dateTime datetime NOT NULL,
-	active bit,
+	dateTime datetime NOT NULL default NOW(),
+	active int NOT NULL,
 	PRIMARY KEY (noteid)
 );
 
@@ -107,6 +107,38 @@ VALUES
 ("admin@admin.dk",
 true,
 "d6YSr320JnLXlp8YYxUcNQ==");
+
+
+/* Create dummy calendar */
+INSERT INTO `cbscalendar`.`calender`
+(`Name`,
+`Active`,
+`CreatedBy`,
+`PrivatePublic`)
+VALUES
+("testCalendar",
+1,
+"Admin@admin.dk",
+1);
+
+
+/* create dummy event*/
+INSERT INTO `cbscalendar`.`events`
+(
+`type`,
+`createdby`,
+`name`,
+`text`,
+`customevent`,
+`CalenderID`)
+VALUES
+(
+1,
+1,
+"test",
+"beskrivelse af test event",
+false,
+1);
 
 
 

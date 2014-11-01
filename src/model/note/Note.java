@@ -11,18 +11,16 @@ public class Note extends Model{
 	QueryBuilder qb = new QueryBuilder(); 
 	
 		public void CreateNote(
-			int noteID,
-			String text, 
-			String dateTime, 
+			String text,  
 			String createdBy, 
 			int isActive, 
 			int eventID)	{
 			
-			String nId = String.valueOf(noteID);
+			String aId = String.valueOf(isActive);
 			String eId = String.valueOf(eventID);
 			
-			String[] fields = {"noteId", "eventId", "createdBy", "text", "dateTime", "active"};
-			String[] values = {nId, eId, createdBy, text, dateTime, String.valueOf(isActive)};
+			String[] fields = {"eventId", "createdBy", "text", "active"};
+			String[] values = {eId, createdBy, text, aId};
 			try {
 				qb.insertInto("notes", fields).values(values).Execute();
 				
