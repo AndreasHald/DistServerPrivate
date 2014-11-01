@@ -11,20 +11,23 @@ public class Note extends Model{
 	QueryBuilder qb = new QueryBuilder(); 
 	
 		public void CreateNote(
+			int noteID,
 			String text, 
+			String dateTime, 
 			String createdBy, 
 			int isActive, 
 			int eventID)	{
 			
+			String nId = String.valueOf(noteID);
 			String eId = String.valueOf(eventID);
-			String aID = String.valueOf(isActive);
 			
-			String[] fields = {"eventId", "createdBy", "text", "active"};
-			String[] values = {eId, createdBy, text, aID};
+			String[] fields = {"noteId", "eventId", "createdBy", "text", "dateTime", "active"};
+			String[] values = {nId, eId, createdBy, text, dateTime, String.valueOf(isActive)};
 			try {
 				qb.insertInto("notes", fields).values(values).Execute();
 				
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -34,12 +37,15 @@ public class Note extends Model{
 					notes = GetNote(noteID);
 					notes.setActive(0);
 					SaveNote(notes);
+					
 				}
 
 		public NoteModel GetNote (int noteID) throws SQLException{
+			
 			try {
 				resultSet = qb.selectFrom("notes").where("noteID", "= ", String.valueOf(noteID)).ExecuteQuery();
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 				while(resultSet.next()){
@@ -52,9 +58,13 @@ public class Note extends Model{
 							noteID);
 				}
 					return notes;
+				
+			
+		
 		}
 		
-		public void SaveNote (NoteModel note){	
+		public void SaveNote (NoteModel note){
+			
 			String text = note.getText();
 			String dateTime = note.getDateTime();
 			String createdBy = note.getCreatedBy();

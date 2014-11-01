@@ -8,6 +8,8 @@ import java.sql.SQLException;
  * 			- Hvem der skal kunne redigere noten
  * 			- Mulighed for at slette / redigere noter
  * 			- Active Status
+ * 
+ * 			ETA: 2 timer
  */
 
 public class NoteModel {
