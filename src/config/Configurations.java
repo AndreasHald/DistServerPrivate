@@ -14,7 +14,7 @@ public class Configurations {
     private String port = "3306";
     private String username = "root";
     private String dbname = "cbscalendar";
-    private String password = "";
+    private String password = "0000";
 
     // FFkey is used in Encryption.java
     private String ffcryptkey = "3.1470";

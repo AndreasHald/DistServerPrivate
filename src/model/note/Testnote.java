@@ -5,15 +5,14 @@ import model.*;
 
 public class Testnote {
 	public static void main (String [] args) throws SQLException{
-		int nID = 3;
-		String text = "penis";
-		String date = "1000-01-01 00:00:00";
-		String cb = "createdBy din mor haha";
-		int ia = 1;
+		
+		String text = "Test tekst";
+		String cb = "createdBy admin";
 		int eID = 11;
+		int aID = 1;
 		
 		Note note = new Note();
-		note.CreateNote(nID, text, date, cb, ia, eID);
-		note.DeleteNote(nID);
+		note.CreateNote(text, cb, aID, eID);
+		//note.DeleteNote();
 	}
 }
