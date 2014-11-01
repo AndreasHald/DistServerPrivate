@@ -33,7 +33,8 @@ public class ClientWorker implements  Runnable{
 			
 			System.out.println("Received: " + ny);
 			
-			String returnSvar = GS.GiantSwitchMethod(ny);		
+			String returnSvar = GS.GiantSwitchMethod(ny);	
+			System.out.println(returnSvar);
 			outToClient.writeBytes(returnSvar + "\n");
 			System.out.println("Reply sent");
 			//BufferedWriter writer = new BufferedWriter(arg0)
