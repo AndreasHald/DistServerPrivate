@@ -14,10 +14,10 @@ public class Configurations {
     private String port = "3306";
     private String username = "root";
     private String dbname = "cbscalendar";
-    private String password = "0000";
+    private String password = "";
 
     // FFkey is used in Encryption.java
-    private String ffcryptkey = "3.1470";
+    private String ffcryptkey = "17";
 
     // Weather variables
     private String weather_expiration_time;

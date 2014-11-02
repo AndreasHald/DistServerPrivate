@@ -1,0 +1,34 @@
+import java.net.*;
+import java.io.*;
+
+import model.calendar.EncryptUserID;
+import model.calendar.GetCalendarData;
+
+public class testing {
+
+	public static void main(String[] args) throws Exception {
+		
+		EncryptUserID e = new EncryptUserID();
+		String userID = "anha13ao";
+        System.out.println(getText("http://calendar.cbs.dk/events.php/"+userID+"/"+e.getKey(userID)+".json"));
+        
+	}
+	public static String getText(String url) throws Exception {
+        URL website = new URL(url);
+        URLConnection connection = website.openConnection();
+        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(
+                                    connection.getInputStream()));
+
+        StringBuilder response = new StringBuilder();
+        String inputLine;
+
+        while ((inputLine = in.readLine()) != null) 
+            response.append(inputLine);
+
+        in.close();
+
+        return response.toString();
+    }
+
+}
