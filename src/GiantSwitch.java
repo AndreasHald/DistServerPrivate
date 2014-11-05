@@ -15,19 +15,18 @@ import JsonClasses.DeleteCalender;
 import JsonClasses.getCalendar;
 import JsonClasses.getEvents;
 
+
 import com.google.gson.*;
 
 import config.Configurations;
 import databaseMethods.SwitchMethods;
 
-public class GiantSwitch {
-	
-	
+public class GiantSwitch {	
 	
 	public String GiantSwitchMethod(String jsonString) throws Exception {
 
-		//Events eventsKlasse = new Events(0, 0, 0, jsonString, jsonString, jsonString, jsonString, jsonString);
 
+		//Events eventsKlasse = new Events(0, 0, 0, jsonString, jsonString, jsonString, jsonString, jsonString);
 		Note noteKlasse = new Note();
 		//ForecastModel forecastKlasse = new ForecastModel();
 		QOTDModel QOTDKlasse = new QOTDModel();
@@ -114,6 +113,12 @@ public class GiantSwitch {
 		case "saveNote": 
 			System.out.println("Recieved saveNote");
 			break;
+			
+		case "createNote":
+			CreateNote CN = (CreateNote)gson.fromJson(jsonString, CreateNote.class);
+			System.out.println(CN.getNoteId()+ "Den har lagt det nye ind i klassen");
+			answer = SW.createNewNote(CN.getNoteId(), CN.getNoteText(), CN.getNoteCreatedBy(), CN.getNoteActive(), CN.getNoteEventID(), CC.getPublicOrPrivate());
+			break;
 
 		case "getNote":
 			System.out.println("Recieved getNote");
@@ -157,6 +162,8 @@ public class GiantSwitch {
 			return "getEvents";
 		} else if (ID.contains("getEventInfo")) {
 			return "getEventInfo";
+		} else if (ID.contains("CreateNote")) {
+			return "CreateNote";
 		} else if (ID.contains("saveNote")) {
 			return "saveNote";
 		} else if (ID.contains("getNote")) {

@@ -18,8 +18,7 @@ public class TCPClient {
 		String gsonString = gson.toJson(A);
 		System.out.println(A);
 		System.out.println(gsonString);
-
-		Socket clientSocket = new Socket("172.17.189.104", 8888);
+		Socket clientSocket = new Socket("localhost", 8888);
 		DataOutputStream outToServer = new DataOutputStream(
 				clientSocket.getOutputStream());
 		byte[] input = gsonString.getBytes();

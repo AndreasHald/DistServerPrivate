@@ -127,8 +127,6 @@ INSERT INTO `cbscalendar`.`events`
 (
 `type`,
 `createdby`,
-`start`,
-`end`,
 `name`,
 `text`,
 `customevent`,
@@ -137,8 +135,6 @@ VALUES
 (
 1,
 1,
-2014-11-01 00:00:00.000,
-2014-11-02 00:00:00.000,
 "test",
 "beskrivelse af test event",
 false,
