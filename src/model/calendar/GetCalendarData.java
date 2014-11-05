@@ -2,9 +2,13 @@ package model.calendar;
 
 import com.google.gson.Gson;
 
+import databaseMethods.SwitchMethods;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.sql.Array;
+import java.util.ArrayList;
 
 /**
  * Created by jesperbruun on 13/10/14.
@@ -39,7 +43,7 @@ public class GetCalendarData {
      * Allows client to retrieve CBS's calendar and then access it.
      * @throws Exception
      */
-    public void getDataFromCalendar() throws Exception {
+    public void getDataFromCalendar(String calenderName) throws Exception {
 
         /**
          * Get URL From calendar.cbs.dk -> Subscribe -> change URL to end with .json
@@ -51,11 +55,22 @@ public class GetCalendarData {
         
 
         Gson gson = new Gson();
+        
         Events events = gson.fromJson(json, Events.class); 
-
+        
+        
+        SwitchMethods sw = new SwitchMethods();
+        
+        sw.insertCBSEvents(events, calenderName);
         //tester events activityID's
-        for (int i = 0; i < events.getEvents().size(); i++){
-            System.out.println(events.getEvents().get(i).getActivityid());
-        }
+        //for (int i = 0; i < events.getEvents().size(); i++){
+        //   System.out.println(events.getEvents().get(i).getStart());
+        //}
+    }
+    
+    public String getuserevents(String userID) throws Exception
+    {
+        String json = readUrl("http://calendar.cbs.dk/events.php/"+userID+"/"+e.getKey(userID)+".json");
+        return json;
     }
 }

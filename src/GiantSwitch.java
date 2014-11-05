@@ -6,11 +6,14 @@ import java.sql.Statement;
 
 import model.QOTD.QOTDModel;
 import model.calendar.Event;
+import model.calendar.GetCalendarData;
 import model.note.Note;
 import JsonClasses.AuthUser;
 import JsonClasses.CalendarInfo;
 import JsonClasses.CreateCalender;
 import JsonClasses.DeleteCalender;
+import JsonClasses.getCalendar;
+import JsonClasses.getEvents;
 
 import com.google.gson.*;
 
@@ -21,7 +24,7 @@ public class GiantSwitch {
 	
 	
 	
-	public String GiantSwitchMethod(String jsonString) throws SQLException {
+	public String GiantSwitchMethod(String jsonString) throws Exception {
 
 		//Events eventsKlasse = new Events(0, 0, 0, jsonString, jsonString, jsonString, jsonString, jsonString);
 
@@ -47,7 +50,7 @@ public class GiantSwitch {
 		/**********
 		 ** LOGIN **
 		 **********/
-		case "logIn": // ANDREAS ARBEJDER HER
+		case "logIn": // VIRKER (MANGLER ADMIN)
 			
 			AuthUser AU = (AuthUser)gson.fromJson(jsonString, AuthUser.class);
 			System.out.println("Recieved logIn");
@@ -61,45 +64,42 @@ public class GiantSwitch {
 			
 			break;
 
-		case "logOut":
+		case "logOut": // TIL GUI
 			System.out.println("Recieved logOut");
 			break;
 
 		/*************
 		 ** CALENDAR **
 		 *************/
-		case "createCalender":
+		case "createCalender": // VIRKER
 			CreateCalender CC = (CreateCalender)gson.fromJson(jsonString, CreateCalender.class);
 			System.out.println(CC.getCalenderName()+ "Den har lagt det nye ind i klassen");
 			answer = SW.createNewCalender(CC.getUserName(), CC.getCalenderName(), CC.getPublicOrPrivate());
 			break;
 		
-		case "deleteCalender":
+		case "deleteCalender": // VIRKER IKKE
 			DeleteCalender DC = (DeleteCalender)gson.fromJson(jsonString, DeleteCalender.class);
 			System.out.println(DC.getCalenderName()+ "Den har lagt det nye ind i klassen");
 			answer = SW.deleteCalender(DC.getUserName(), DC.getCalenderName());
 			break;
 		
-		case "saveImportedCalender":
-			
+		case "saveImportedCalender": //SKAL IKKE VIRKE
 			
 			break;
 			
-		case "getCalender":
+		case "getCalender": // VIRKER ( SKAL TESTES)
 			System.out.println("Recieved getCalender");
+			getCalendar gc = (getCalendar)gson.fromJson(jsonString, getCalendar.class);
+			answer = SW.getCalendar(gc.getcreatedby());
 			break;
 
-		case "getEvents":
+		case "getEvents": // VIRKER (CBS EVENT)
 			System.out.println("Recieved getEvents");
-			Event GE = (Event)gson.fromJson(jsonString, Event.class);
-			try {
-				answer = SW.getEvent(GE.getCalendarID());
-			} catch (Exception e) {
-				answer = "Sql Error";
-				e.printStackTrace();
-			}
+			getEvents ge = gson.fromJson(jsonString, getEvents.class);
+			GetCalendarData gcd = new GetCalendarData();
+			answer = gcd.getuserevents(ge.getusername());
 			break;
-
+			
 		case "createEvent":
 			System.out.println("Recieved saveEvent");
 			break;
@@ -111,7 +111,7 @@ public class GiantSwitch {
 		case "deleteEvent":
 			System.out.println("Recieved deleteEvent");
 		
-		case "saveNote":
+		case "saveNote": 
 			System.out.println("Recieved saveNote");
 			break;
 

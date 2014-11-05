@@ -34,11 +34,11 @@ CREATE TABLE IF NOT EXISTS events
 (
 	eventid int NOT NULL AUTO_INCREMENT,
 	type int NOT NULL,
-	location int,
+	location varchar(50),
 	createdby int NOT NULL,
 	startTime datetime NOT NULL,
 	endTime datetime NOT NULL,
-	name varchar(0) NOT NULL,
+	name varchar(200) NOT NULL,
 	text text NOT NULL,
 	-- Decides wether the event is an import-event or user created
 	-- 

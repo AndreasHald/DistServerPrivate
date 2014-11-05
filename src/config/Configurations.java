@@ -17,7 +17,7 @@ public class Configurations {
     private String password = "";
 
     // FFkey is used in Encryption.java
-    private String ffcryptkey = "17";
+    private String ffcryptkey = "17"; 
 
     // Weather variables
     private String weather_expiration_time;

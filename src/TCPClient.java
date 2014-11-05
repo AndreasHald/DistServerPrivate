@@ -19,11 +19,11 @@ public class TCPClient {
 		System.out.println(A);
 		System.out.println(gsonString);
 
-		Socket clientSocket = new Socket("172.17.163.86", 8888);
+		Socket clientSocket = new Socket("172.17.189.104", 8888);
 		DataOutputStream outToServer = new DataOutputStream(
 				clientSocket.getOutputStream());
 		byte[] input = gsonString.getBytes();
-		byte key = (byte) 3.1470;
+		byte key = (byte) 17;
 		byte[] encrypted = input;
 		for (int i = 0; i < encrypted.length; i++)
 			encrypted[i] = (byte) (encrypted[i] ^ key);

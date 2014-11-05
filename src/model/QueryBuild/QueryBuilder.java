@@ -123,6 +123,7 @@ public class QueryBuilder {
                 setQuery += fields[i] + "='" + values[i] + "'";
             }
         }
+        
         queryBuilder.setFields(setQuery);
         queryBuilder.setUpdate(true);
 

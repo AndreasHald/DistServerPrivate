@@ -25,15 +25,15 @@ public class Events {
 				//String values from SQL database (must be created)
 				int eventID = rs.getInt("eventid");
 				int type = rs.getInt("type");
-				int location = rs.getInt("location");
+				String location = rs.getString("location");
 				int createdby = rs.getInt("createdby");
 				
 				
-				Date startDate = rs.getDate("start");
-				Time startTime = rs.getTime("start");
+				//Date startDate = rs.getDate("start");
+				//Time startTime = rs.getTime("start");
 				
-				Date endDate = rs.getDate("end");
-				Time endTime = rs.getTime("end");
+				//Date endDate = rs.getDate("end");
+				//Time endTime = rs.getTime("end");
 				
 				String nameEvent = rs.getString("name");
 				String text = rs.getString("text");
@@ -42,19 +42,19 @@ public class Events {
 				String stringType = String.valueOf(type);
 				String stringLocation = String.valueOf(location);
 				String stringCreatedby = String.valueOf(createdby);
-				String stringStartDate = String.valueOf(startDate);
-				String stringStartTime = String.valueOf(startTime);				
-				String stringEndDate = String.valueOf(endDate);
-				String stringEndTime = String.valueOf(endTime);
+				//String stringStartDate = String.valueOf(startDate);
+				//String stringStartTime = String.valueOf(startTime);				
+				//String stringEndDate = String.valueOf(endDate);
+				//String stringEndTime = String.valueOf(endTime);
 				
 				ArrayList<String> alStart = new ArrayList<String>();
-				alStart.add(stringStartDate + "" + stringStartTime);
+				//alStart.add(stringStartDate + "" + stringStartTime);
 				
 				ArrayList<String> alEnd = new ArrayList<String>();
-				alEnd.add(stringEndDate + "" + stringEndTime);
+				//alEnd.add(stringEndDate + "" + stringEndTime);
 				
 				
-				System.out.println(String.valueOf(startDate.getTime()));
+				//System.out.println(String.valueOf(startDate.getTime()));
 				
 				events.add(new Event(stringEventID, stringEventID, stringType, stringType, stringLocation, stringLocation,stringCreatedby, alStart, alEnd));				
 			}

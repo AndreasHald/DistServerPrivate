@@ -7,6 +7,8 @@ import javax.print.attribute.DateTimeSyntax;
 import model.Model;
 import model.QOTD.QOTDModel;
 import model.QueryBuild.QueryBuilder;
+import model.calendar.Events;
+import model.calendar.GetCalendarData;
 
 public class SwitchMethods extends Model
 {
@@ -28,6 +30,15 @@ public class SwitchMethods extends Model
 	{
 		String stringToBeReturned ="";
 		testConnection();
+		if(privatePublic == 1) // IF CALENDAR IS CBS CALENDAR
+		{
+			GetCalendarData gcd = new GetCalendarData();
+			try {
+				gcd.getDataFromCalendar(calenderName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		if(authenticateNewCalender(calenderName) == false)
 		{
 			addNewCalender(calenderName, userName, privatePublic);
@@ -40,6 +51,42 @@ public class SwitchMethods extends Model
 		
 		
 		return stringToBeReturned;
+	}
+	
+	public String insertCBSEvents(Events events, String calenderName) throws SQLException
+	{
+		String [] fields = {"type", "location", "createdby", "startTime", "endTime", "name", "text", "customevent", "CalenderID"};
+		
+		for (int i = 0; i < events.getEvents().size(); i++){
+			String type = "1";
+			String location = events.getEvents().get(i).getLocation();
+			String createdby = "1";
+			ArrayList<String> startTime = events.getEvents().get(i).getStart();
+			ArrayList<String> endTime = events.getEvents().get(i).getEnd();
+			String name = events.getEvents().get(i).getTitle();
+			String text = events.getEvents().get(i).getDescription();
+			String customevent = "1"; // DETTE ER IKKE ET CUSTOM EVENT
+			String CalendarID = "1";
+			
+			String[] values = {type, location, createdby, "9999-12-31 23:59:59","9999-12-31 23:59:59", name, text, customevent, CalendarID };
+
+			qb.insertInto("events", fields).values(values).Execute();
+			System.out.println("Event inserted" + i);
+	    }
+		System.out.println("done");
+		return null;
+	}
+	
+	public String getCalendar(String username) throws SQLException
+	{
+		resultSet = qb.selectFrom("calender").where("CreatedBy", "=", username).ExecuteQuery();
+		String reply = null;
+		while(resultSet.next())
+		{
+			reply += resultSet.toString();
+		}
+		
+		return reply;
 	}
 	
 	public boolean authenticateNewCalender(String newCalenderName) throws SQLException
@@ -85,7 +132,7 @@ public class SwitchMethods extends Model
 		String stringToBeReturend = "";
 		String usernameOfCreator ="";
 		String calenderExists = "";
-		resultSet = qb.selectFrom("Calender").where("Name", "=", calenderName).ExecuteQuery();
+		resultSet = qb.selectFrom("calender").where("Name", "=", calenderName).ExecuteQuery();
 				
 //				("select * from calender where Name = '"+calenderName+"';");
 		while(resultSet.next())
@@ -94,8 +141,8 @@ public class SwitchMethods extends Model
 		}
 		if(!calenderExists.equals(""))
 		{
-			String [] value = {"CreatedBy"};
-			resultSet = qb.selectFrom(value, "Calender").where("Name", "=", calenderName).ExecuteQuery();
+			String [] value = {"createdby"};
+			resultSet = qb.selectFrom(value, "calender").where("Name", "=", calenderName).ExecuteQuery();
 			while(resultSet.next())
 			{
 				usernameOfCreator = resultSet.toString();
@@ -108,8 +155,8 @@ public class SwitchMethods extends Model
 			else
 			{
 				String [] keys = {"Active"};
-				String [] values = {"2"};
-				qb.update("Calendar", keys, values).where("Name", "=", calenderName).Execute();
+				String [] values = {"0"};
+				qb.update("calendar", keys, values).where("Name", "=", calenderName).Execute();
 				stringToBeReturend = "Calender has been set inactive";
 			}
 			stringToBeReturend = resultSet.toString();
