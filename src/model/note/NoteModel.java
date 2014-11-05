@@ -18,19 +18,17 @@ public class NoteModel {
 	private String text;
 	private String dateTime;
 	private String createdBy;
-	private int isActive;
+	private int Active;
 	private int eventID;
 	
-	public NoteModel(int noteID, String text, String dateTime, String createdBy, int isActive, int eventID) {
+	public NoteModel(int noteID, String text, String dateTime, String createdBy, int Active, int eventID) {
 		super();
 		this.noteID = noteID;
 		this.text = text;
 		this.dateTime = dateTime;
 		this.createdBy = createdBy;
-		this.isActive = isActive;
+		this.Active = Active;
 		this.eventID = eventID;
-		
-		
 	}
 	
 	public int getEventID() {
@@ -43,13 +41,13 @@ public class NoteModel {
 	}
 
 
-	public int isActive() {
-		return isActive;
+	public int Active() {
+		return Active;
 	}
 
 
-	public void setActive(int isActive) {
-		this.isActive = isActive;
+	public void setActive(int Active) {
+		this.Active = Active;
 	}
 
 
@@ -86,5 +84,4 @@ public class NoteModel {
 	public void setDateTime(String dateTime) {
 		this.dateTime = dateTime;
 	}
-		
 }

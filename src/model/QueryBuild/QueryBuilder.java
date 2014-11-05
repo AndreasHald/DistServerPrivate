@@ -123,10 +123,13 @@ public class QueryBuilder {
                 setQuery += fields[i] + "='" + values[i] + "'";
             }
         }
+        System.out.println(setQuery);
+        
         queryBuilder.setFields(setQuery);
         queryBuilder.setUpdate(true);
-
+        System.out.println("QB kørt update");
         return new Where(queryBuilder);
+        
     }
 
     /**
@@ -140,10 +143,6 @@ public class QueryBuilder {
         queryBuilder.setSoftDelete(true);
         return new Where(queryBuilder);
     }
-
-
-
-
 }
 
 
