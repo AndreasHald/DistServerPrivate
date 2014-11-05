@@ -100,6 +100,7 @@ public class QueryBuilder {
             sb.append(n);
         }
         queryBuilder.setFields(sb.toString());
+        System.out.println(sb);
         return new Values(queryBuilder);
 
     }
@@ -115,6 +116,7 @@ public class QueryBuilder {
         QueryBuilder queryBuilder = new QueryBuilder();
         queryBuilder.setTableName(tableName);
 
+        //String setQuery = "\"";
         String setQuery = "";
         for (int i = 0; i < fields.length; i++) {
             if(i != (fields.length-1)) {
@@ -123,11 +125,12 @@ public class QueryBuilder {
                 setQuery += fields[i] + "='" + values[i] + "'";
             }
         }
+        // setQuery += "\"";
         System.out.println(setQuery);
         
         queryBuilder.setFields(setQuery);
         queryBuilder.setUpdate(true);
-        System.out.println("QB kørt update");
+        System.out.println("QB koert update");
         return new Where(queryBuilder);
         
     }

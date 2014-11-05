@@ -7,13 +7,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import model.Model;
 import model.QueryBuild.QueryBuilder;
+import model.note.NoteModel;
 
 /**
  * Created by jesperbruun on 10/10/14.
  * Den laver selve arrayet af alle generede Event
  */
-public class Events {
+public class Events extends Model{
     ArrayList<Event> events = new ArrayList<Event>();
 
     public ArrayList<Event> getEvents() {
@@ -27,7 +29,6 @@ public class Events {
 				int type = rs.getInt("type");
 				int location = rs.getInt("location");
 				int createdby = rs.getInt("createdby");
-				
 				
 				Date startDate = rs.getDate("start");
 				Time startTime = rs.getTime("start");
@@ -69,6 +70,36 @@ public class Events {
     public void setEvents(ArrayList<Event> event) {
         this.events = event;
     }
+    
+	//NoteModel notes = new NoteModel(0, null, null, null, 0, 0, 0);
+	//QueryBuilder qb = new QueryBuilder(); 
+	
+	public void createEvent(
+		    String activityid,
+		    String eventid,
+		    String type,
+		    String title,
+		    String description,
+		    String location,
+		    String createdby,
+		    ArrayList<String> start,
+		    ArrayList<String> end){
+			
+
+			
+			String eId = String.valueOf(eventid);
+			//String aID = String.valueOf(isActive);
+			//String pID = String.valueOf(permission);
+			
+			String[] fields = {"eventid", "type", "location", "createdby", "start", "end", "name"};
+			String[] values = {nId, eId, createdBy, text, dateTime, aID, pID};
+			try {
+				qb.insertInto("notes", fields).values(values).Execute();
+				
+			} catch (SQLException e) {
+				//e.printStackTrace();
+			}
+		}
     
     // Konverterer array events til en tekst streng
     @Override

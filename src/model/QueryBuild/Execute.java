@@ -102,9 +102,12 @@ public class Execute extends Model {
         if (getQueryBuilder().isSoftDelete()) {
             sql = UPDATE + getQueryBuilder().getTableName() + " SET active = 0" +
                     WHERE + getWhere().getWhereKey() + " " + getWhere().getWhereOperator() + " " + getWhere().getWhereValue() + ";  ";
+            // Print SQL
+            System.out.println(sql);
             try {
                 getConnection(false);
                 getConn();
+                //System.out.println(sql);
                 //String cleanSql = StringEscapeUtils.escapeSql(sql);
                 sqlStatement = getConn().prepareStatement(sql);
 
@@ -114,10 +117,13 @@ public class Execute extends Model {
 
         } else if(getQueryBuilder().isUpdate()) {
             sql = UPDATE + getQueryBuilder().getTableName() + " SET " + getQueryBuilder().getFields() + "" + WHERE + getWhere().getWhereKey() + " " + getWhere().getWhereOperator() + " ?;";
+            // Print SQL
+            System.out.println(sql);
             try {
                 getConnection(false);
                 getConn();
                 //String cleanSql = StringEscapeUtils.escapeSql(sql);
+                System.out.println(sql);
                 sqlStatement = getConn().prepareStatement(sql);
                 sqlStatement.setString(1, getWhere().getWhereValue());
 
@@ -135,6 +141,9 @@ public class Execute extends Model {
             }
             sql += sb.toString();
             sql += " );";
+            
+            // Print SQL
+            System.out.println(sql);
             try {
                 getConnection(false);
                 getConn();

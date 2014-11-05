@@ -1,8 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import model.QOTD.QOTDModel;
 import model.calendar.Event;
@@ -15,7 +11,6 @@ import JsonClasses.CreateNote;
 
 import com.google.gson.*;
 
-import config.Configurations;
 import databaseMethods.SwitchMethods;
 
 public class GiantSwitch {
@@ -45,16 +40,13 @@ public class GiantSwitch {
 		/**********
 		 ** LOGIN **
 		 **********/
-		case "logIn": // ANDREAS ARBEJDER HER
+		case "logIn":
 			
 			AuthUser AU = (AuthUser)gson.fromJson(jsonString, AuthUser.class);
-			System.out.println("Recieved logIn");
-			try {
-				answer = SW.authenticate(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsAdmin());
-			} catch (Exception e) {
-				answer = "Sql Error";
-				e.printStackTrace();
-			}
+			//System.out.println("Recieved logIn");
+			//answer = SW.authenticate(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsAdmin());
+			
+			answer = AU.getAuthUserEmail();
 			
 			
 			break;
@@ -83,11 +75,11 @@ public class GiantSwitch {
 			
 			break;
 			
-		case "getCalender":
+		case "getCalender": 
 			System.out.println("Recieved getCalender");
 			break;
 
-		case "getEvents":
+		case "getEvents": // PHILIP arbejder på denne funktion
 			System.out.println("Recieved getEvents");
 			Event GE = (Event)gson.fromJson(jsonString, Event.class);
 			try {
@@ -98,7 +90,7 @@ public class GiantSwitch {
 			}
 			break;
 
-		case "createEvent":
+		case "createEvent": 
 			System.out.println("Recieved saveEvent");
 			break;
 

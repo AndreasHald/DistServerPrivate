@@ -38,7 +38,7 @@ public class Note extends Model{
 					
 					SaveNote(notes);
 					
-					System.out.println("Delete funktionen er kørt");
+					System.out.println("Delete funktionen er kï¿½rt");
 				}
 
 		public NoteModel GetNote (int noteID) throws SQLException{
@@ -60,7 +60,7 @@ public class Note extends Model{
 					return notes;
 		}
 		
-		public void SaveNote (NoteModel note){
+		public void SaveNote (NoteModel note) throws SQLException{
 			
 			String text = note.getText();
 			String dateTime = note.getDateTime();
@@ -75,8 +75,8 @@ public class Note extends Model{
 			System.out.println(eventID);
 			System.out.println(noteID);
 			
-			String[] fields = {"noteID", "eventID", "createdBy", "text", "dateTime", "Active"};
+			String[] fields = {"noteID", "eventID", "createdBy", "text", "dateTime", "active"};
 			String[] values = {String.valueOf(noteID), String.valueOf(eventID), createdBy, text, dateTime, String.valueOf(Active)};
-			qb.update("notes", fields, values).where("noteID", "=", String.valueOf(noteID));
+			qb.update("notes", fields, values).where("noteID", "=", String.valueOf(noteID)).Execute();
 		}
 }
