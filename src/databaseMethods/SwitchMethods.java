@@ -13,8 +13,6 @@ public class SwitchMethods extends Model
 	QueryBuilder qb = new QueryBuilder();
 	QOTDModel qm = new QOTDModel();
 	
-
-	
 	/**
 	 * Allows the client to create a new calendar
 	 * @param userName
@@ -122,6 +120,24 @@ public class SwitchMethods extends Model
 		
 		
 		return stringToBeReturend;
+	}
+
+	public String createNewNote (String noteId, String noteText, String noteCreatedBy, String noteActive, String noteEventID, int privatePublic) throws SQLException
+	{
+		String stringToBeReturned ="";
+		testConnection();
+		if(authenticateNewNote(NoteName) == false)
+		{
+			addNewNote.CreateNote(noteId, noteText, noteCreatedBy, noteActive, noteEventID, privatePublic);
+			stringToBeReturned = "The new note has been created!";
+		}
+		else
+		{
+			stringToBeReturned = "The new note has not been created!";
+		}
+		
+		
+		return stringToBeReturned;
 	}
 	
 	
