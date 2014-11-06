@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS events
 	type int NOT NULL,
 	location int,
 	createdby int NOT NULL,
-	start datetime NOT NULL,
-	end datetime NOT NULL,
+	startTime datetime NOT NULL,
+	endTime datetime NOT NULL,
 	name varchar(0) NOT NULL,
 	text text NOT NULL,
 	-- Decides wether the event is an import-event or user created
@@ -107,6 +107,42 @@ VALUES
 ("admin@admin.dk",
 true,
 "d6YSr320JnLXlp8YYxUcNQ==");
+
+
+/* Create dummy calendar */
+INSERT INTO `cbscalendar`.`calender`
+(`Name`,
+`Active`,
+`CreatedBy`,
+`PrivatePublic`)
+VALUES
+("testCalendar",
+1,
+"Admin@admin.dk",
+1);
+
+
+/* create dummy event*/
+INSERT INTO `cbscalendar`.`events`
+(
+`type`,
+`createdby`,
+`start`,
+`end`,
+`name`,
+`text`,
+`customevent`,
+`CalenderID`)
+VALUES
+(
+1,
+1,
+2014-11-01 00:00:00.000,
+2014-11-02 00:00:00.000,
+"test",
+"beskrivelse af test event",
+false,
+1);
 
 
 
@@ -226,6 +262,18 @@ CREATE TABLE IF NOT EXISTS locationdata
 	PRIMARY KEY (locationdataid)
 );
 
+
+CREATE TABLE IF NOT EXISTS notes
+(
+	noteid int NOT NULL AUTO_INCREMENT,
+	eventid int NOT NULL,
+	createdby int NOT NULL,
+	text text,
+	created datetime NOT NULL,
+	PRIMARY KEY (noteid)
+);
+
+
 CREATE TABLE IF NOT EXISTS roles
 (
 	roleid int NOT NULL AUTO_INCREMENT,
@@ -269,6 +317,12 @@ ALTER TABLE userevents
 	ON UPDATE RESTRICT
 ;
 
+
+ALTER TABLE notes
+	ADD FOREIGN KEY (eventid)
+	REFERENCES events (eventid)
+	ON UPDATE RESTRICT
+;
 
 
 ALTER TABLE events
