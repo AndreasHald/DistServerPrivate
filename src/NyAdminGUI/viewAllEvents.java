@@ -18,26 +18,10 @@ public class viewAllEvents extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					viewAllEvents frame = new viewAllEvents();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public viewAllEvents() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 550, 650);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -78,10 +62,11 @@ public class viewAllEvents extends JFrame {
 		btnRemoveEvent.setBounds(6, 593, 124, 29);
 		contentPane.add(btnRemoveEvent);
 		
-		JLabel lblShowAllUser = new JLabel("Showing all user created events");
+		JLabel lblShowAllUser = new JLabel("Displaying all user created events");
 		lblShowAllUser.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblShowAllUser.setBounds(6, 21, 464, 52);
 		contentPane.add(lblShowAllUser);
+	
 		
 	}
 }

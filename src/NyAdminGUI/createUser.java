@@ -44,7 +44,7 @@ public class createUser extends JFrame {
 	 * Create the frame.
 	 */
 	public createUser() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 470, 340);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -89,7 +89,7 @@ public class createUser extends JFrame {
 			}
 		});
 		btnCancel.setBounds(37, 249, 117, 29);
-		contentPane.add(btnCancel);
+		contentPane.add(btnCancel); 
 		
 		JButton btnCreateUser = new JButton("Create user");
 		btnCreateUser.addMouseListener(new MouseAdapter() {

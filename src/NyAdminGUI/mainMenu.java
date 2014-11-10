@@ -13,34 +13,20 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JEditorPane;
 
 public class mainMenu extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					mainMenu frame = new mainMenu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	
 	/**
 	 * Create the frame.
 	 */
 	public mainMenu() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,16 +44,23 @@ public class mainMenu extends JFrame {
 				System.exit(0);
 			}
 		});
-		btnExit.setBounds(6, 243, 117, 29);
+		btnExit.setBounds(6, 443, 117, 29);
 		contentPane.add(btnExit);
 		
-		JButton btnUserlist = new JButton("User list");
-		btnUserlist.setBounds(6, 55, 117, 29);
+		JButton btnUserlist = new JButton("Users list");
+		btnUserlist.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				showAllUsers showallusers = new showAllUsers();
+				showallusers.setVisible(true);
+			}
+		});
+		btnUserlist.setBounds(315, 111, 117, 29);
 		contentPane.add(btnUserlist);
 		
-		JLabel lblMainMenu = new JLabel("Main menu");
-		lblMainMenu.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		lblMainMenu.setBounds(181, 6, 117, 29);
+		JLabel lblMainMenu = new JLabel("CBS Calendar ");
+		lblMainMenu.setFont(new Font("Lucida Grande", Font.ITALIC, 18));
+		lblMainMenu.setBounds(6, 6, 167, 29);
 		contentPane.add(lblMainMenu);
 		
 		JButton btnLogout = new JButton("Log out");
@@ -77,45 +70,72 @@ public class mainMenu extends JFrame {
 				dispose();
 				Login login = new Login();
 				login.setVisible(true);
+				Logic.adminSignedIn = false;
 			}
 		});
-		btnLogout.setBounds(327, 243, 117, 29);
+		btnLogout.setBounds(327, 443, 117, 29);
 		contentPane.add(btnLogout);
 		
-		JButton btnNoteList = new JButton("Note list");
-		btnNoteList.setBounds(6, 84, 117, 29);
+		JButton btnNoteList = new JButton("Notes list");
+		btnNoteList.setBounds(315, 152, 117, 29);
 		contentPane.add(btnNoteList);
 		
 		JButton btnViewAllEvents = new JButton("View all events");
 		btnViewAllEvents.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				viewAllEvents vAE = new viewAllEvents();
-				vAE.setVisible(true);
+				viewAllEvents viewAllEvents = new viewAllEvents();
+				viewAllEvents.setVisible(true);
 			}
 		});
-		btnViewAllEvents.setBounds(6, 113, 117, 29);
+		btnViewAllEvents.setBounds(6, 70, 117, 29);
 		contentPane.add(btnViewAllEvents);
 		
 		JButton btnCreateUser = new JButton("Create user");
-		btnCreateUser.setBounds(6, 195, 117, 29);
+		btnCreateUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				createUser createUser = new createUser();
+				createUser.setVisible(true);
+				//dispose();
+			}
+		});
+		btnCreateUser.setBounds(315, 70, 117, 29);
 		contentPane.add(btnCreateUser);
 		
 		JButton btnDeleteUser = new JButton("Delete user");
-		btnDeleteUser.setBounds(6, 168, 117, 29);
+		btnDeleteUser.setBounds(6, 152, 117, 29);
 		contentPane.add(btnDeleteUser);
 		
 		JButton btnDeleteEvent = new JButton("Delete event");
-		btnDeleteEvent.setBounds(6, 140, 117, 29);
+		btnDeleteEvent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			
+				deleteEvent deleteevent = new deleteEvent();
+				deleteevent.setVisible(true);
+					
+			}
+		});
+		btnDeleteEvent.setBounds(6, 111, 117, 29);
 		contentPane.add(btnDeleteEvent);
 		
-		JButton btnGoToImgur = new JButton("Go to imgur");
-		btnGoToImgur.setBounds(327, 55, 117, 29);
-		contentPane.add(btnGoToImgur);
-		
 		JButton btnChangePassword = new JButton("Change password");
-		btnChangePassword.setBounds(327, 195, 117, 29);
+		btnChangePassword.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				changeAdminPassword changeadminpassword = new changeAdminPassword();
+				changeadminpassword.setVisible(true);
+			}
+		});
+		btnChangePassword.setBounds(181, 443, 155, 29);
 		contentPane.add(btnChangePassword);
-	}
+		
+		JLabel lblAdministratorMenu = new JLabel("Administrator Menu");
+		lblAdministratorMenu.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		lblAdministratorMenu.setBounds(6, 35, 167, 16);
+		contentPane.add(lblAdministratorMenu);
+		
 
+	}
 }

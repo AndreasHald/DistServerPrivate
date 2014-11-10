@@ -1,16 +1,15 @@
 package NyAdminGUI;
 
+import java.util.Calendar;
+
 public class Logic {
 	
-	private static String userName = "admin";
-	private static String pswd = "admin";
+	private static String pswd = "admin123";
+	static boolean adminSignedIn = false;
 	
-	public static boolean authenticateAdmin(String username, 
-			String password){
-		String authUserName = userName;
-		String authPswd = pswd;
+	public static boolean authenticateAdmin(String password){
 		
-		if (username == authUserName && password == authPswd){
+		if (password.equals(pswd)){ 
 			return true;
 		}else{
 			return false;
@@ -20,20 +19,55 @@ public class Logic {
 	
 	public static boolean createUser(String username, String password, String passwordRepeat){
 	
-		if(password == passwordRepeat){
+		if(password.equals(passwordRepeat)){
 			
 			try{
-			//User Should be added to DB here
-			
-			return true;
+				
+				//User should be added to DB here
+				errorMessage userAdded = new errorMessage("The user -" + username + "- has been added!");
+				userAdded.setVisible(true);
+				return true;
 			}catch (Exception e){
 				return false;
 			}
 		}else{
-				System.out.println("Password does not match");
-				return false;
-				//GUI Error message with password not matching
+			errorMessage passwordnotmatch = new errorMessage("Make sure that the passwords match!");
+			passwordnotmatch.setVisible(true);				
+			return false;
 		}
 						
 	}
+
+	public static void removeEvent(String removeEventID){
+		
+		//Event should be removed here
+		
+	}
+	
+
+	public static boolean changeAdminPassword(String currentPassword, String newPassword,
+			String passwordRepeat) {
+		
+		if(newPassword.equals(passwordRepeat)){
+		
+			if(currentPassword.equals(pswd)){
+			pswd = newPassword;
+			errorMessage passwordchanged = new errorMessage("The administrator password is changed successfully!");
+			passwordchanged.setVisible(true);
+			return true;
+			}else{
+			errorMessage wrongpassword = new errorMessage("The existing password does not match");	
+			wrongpassword.setVisible(true);
+			return false;	
+			}
+		}else{
+			errorMessage passwordnotmatch = new errorMessage("Make sure that the passwords match!");
+			passwordnotmatch.setVisible(true);
+			return false;
+			}
+
+	}
+	
+	 
+	
 }
