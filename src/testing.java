@@ -2,6 +2,7 @@ import java.net.*;
 import java.io.*;
 
 import databaseMethods.SwitchMethods;
+import model.QOTD.QOTDModel;
 import model.calendar.EncryptUserID;
 import model.calendar.GetCalendarData;
 
@@ -14,6 +15,8 @@ public class testing {
         //System.out.println(getText("http://calendar.cbs.dk/events.php/"+userID+"/"+e.getKey(userID)+".json"));
 
 		SwitchMethods sw = new SwitchMethods();
+		QOTDModel QOTDKlasse = new QOTDModel();
+		String reply = QOTDKlasse.getQuote();
 		
 		//String reply = sw.deleteEvent("1");
 		//String reply = sw.getEvent("1");

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import model.Forecast.ForecastModel;
 import model.QOTD.QOTDModel;
 import model.calendar.Event;
 import model.calendar.GetCalendarData;
@@ -152,10 +153,13 @@ public class GiantSwitch {
 		 ** QUOTE **
 		 **********/
 		case "getQuote":
-
-		answer = QOTDKlasse.getQuote();
+			try {
+				answer = QOTDKlasse.getQuote();
+			} catch (Exception e) {
+				answer = "error";
+				e.printStackTrace();
+			}
 			System.out.println(answer);
-			
 			break;
 
 		/************
@@ -164,6 +168,8 @@ public class GiantSwitch {
 
 		case "getClientForecast":
 			System.out.println("Recieved getClientForecast");
+			ForecastModel fm = new ForecastModel();
+			
 			break;
 		
 		default:
