@@ -49,7 +49,7 @@ public class GiantSwitch {
 		/**********
 		 ** LOGIN **
 		 **********/
-		case "logIn": // ANDREAS ARBEJDER HER
+		case "logIn": // DONE (MANGLER ADMIN)
 			
 			AuthUser AU = (AuthUser)gson.fromJson(jsonString, AuthUser.class);
 			System.out.println("Recieved logIn");
@@ -63,7 +63,7 @@ public class GiantSwitch {
 			
 			break;
 
-		case "logOut":
+		case "logOut": // KUN AKTUEL FOR ADMIN/GUI
 			System.out.println("Recieved logOut");
 			break;
 
@@ -82,13 +82,15 @@ public class GiantSwitch {
 			answer = SW.deleteCalender(DC.getUserName(), DC.getCalenderName());
 			break;
 		
-		case "saveImportedCalender":
+		case "saveImportedCalender": // OVERFLØDIG
 			
 			
 			break;
 			
-		case "getCalender":
+		case "getCalender": 
 			System.out.println("Recieved getCalender");
+			CalendarInfo ci = (CalendarInfo)gson.fromJson(jsonString, CalendarInfo.class);
+			answer = SW.getCalendar(ci.getCalenderName());
 			break;
 
 		case "getEvents":
@@ -110,7 +112,7 @@ public class GiantSwitch {
 			}
 			break;
 
-		case "createEvent":
+		case "createEvent": // ANDREAS ARBEJDER HER
 			System.out.println("Recieved saveEvent");
 			break;
 

@@ -80,6 +80,29 @@ public class SwitchMethods extends Model
 		return stringToBeReturned;
 	}
 	
+	public String getCalendar (String calendarName) throws SQLException
+	{
+		String reply = "";
+		
+		resultSet = qb.selectFrom("calender").where("Name", "=", calendarName).ExecuteQuery();
+		
+		while(resultSet.next())
+		{
+			reply = resultSet.toString();
+		}
+		
+		if (reply.equals(""))
+		{
+			reply = "Calendar wasn't found";
+		}
+		return reply;
+	}
+	
+	public String createEvent(String eventid,String type, String location, String createdby, String startTime, String endTime, String name, String text, String customevent,String CalenderID)
+	{
+		return null;
+	}
+	
 	public String removeCalender (String userName, String calenderName) throws SQLException
 	{
 		String stringToBeReturend = "";
