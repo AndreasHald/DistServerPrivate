@@ -1,5 +1,7 @@
 package model.note;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.SQLException;
 
 import model.Model;
@@ -10,7 +12,8 @@ public class Note extends Model{
 	NoteModel notes = new NoteModel(0, null, null, null, 0, 0);
 	QueryBuilder qb = new QueryBuilder(); 
 	
-		public void CreateNote(
+		public String CreateNote(
+			int nId, 
 			String text,  
 			String createdBy, 
 			int isActive, 
@@ -24,19 +27,36 @@ public class Note extends Model{
 			try {
 				qb.insertInto("notes", fields).values(values).Execute();
 				
+				return "New note created";
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
+				return "Could not create note. Please try again.";
 			}
 		}
 
-		public void DeleteNote (int noteID) throws SQLException {
+		public String DeleteNote (int noteID){
+			String stringToBeReturned = "";
 			
-					notes = GetNote(noteID);
-					notes.setActive(0);
-					SaveNote(notes);
-					
-				}
+			try {
+				notes = GetNote(noteID);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				
+				stringToBeReturned = "Could not GetNote with ID="+noteID+". Therefor the process of deleting this note has been aborted.";
+			}
+			notes.setActive(0);
+			try {
+				SaveNote(notes);
+				stringToBeReturned = "Note with ID="+noteID+" deleted succesfully";
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				stringToBeReturned = "Could not delete note with ID=" + noteID +". Please try again.";
+			}
+			return stringToBeReturned;	
+		}
 
 		public NoteModel GetNote (int noteID) throws SQLException{
 			
@@ -61,7 +81,7 @@ public class Note extends Model{
 		
 		}
 		
-		public void SaveNote (NoteModel note){
+		public void SaveNote (NoteModel note) throws SQLException{
 			
 			String text = note.getText();
 			String dateTime = note.getDateTime();
@@ -72,8 +92,9 @@ public class Note extends Model{
 			int noteID = note.getNoteID();
 			
 			String[] fields = {"eventID", "createdBy", "text", "dateTime", "Active"};
-			String[] values = {String.valueOf(noteID), text, dateTime, createdBy, String.valueOf(isActive)};
-			qb.update("notes", fields, values).where("noteID", "=", String.valueOf(noteID));
+			String[] values = {String.valueOf(eventID), createdBy, text, dateTime,  String.valueOf(isActive)};
+			
+			qb.update("notes", fields, values).where("noteID", "=", String.valueOf(noteID)).Execute();
 				
 		}
 }

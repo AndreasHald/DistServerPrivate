@@ -7,6 +7,7 @@ import javax.print.attribute.DateTimeSyntax;
 import model.Model;
 import model.QOTD.QOTDModel;
 import model.QueryBuild.QueryBuilder;
+import model.note.Note;
 
 public class SwitchMethods extends Model
 {
@@ -226,4 +227,18 @@ public class SwitchMethods extends Model
 			return "1"; // returnerer fejlkoden "1" hvis email ikke findes
 		}
 	}
+	
+	public String createNote(int nId, String text, String cb, int aId, int eId){
+		String stringToBeReturned = "";
+		
+		Note note = new Note();
+
+		return note.CreateNote(nId, text, cb, aId, eId);
+	}
+	public String deleteNote(int nId){
+		Note note = new Note();
+		
+		return note.DeleteNote(nId);
+	}
+	
 }
