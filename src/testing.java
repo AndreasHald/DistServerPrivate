@@ -1,6 +1,7 @@
 import java.net.*;
 import java.io.*;
 
+import databaseMethods.SwitchMethods;
 import model.calendar.EncryptUserID;
 import model.calendar.GetCalendarData;
 
@@ -11,8 +12,14 @@ public class testing {
 		//EncryptUserID e = new EncryptUserID();
 		//String userID = "anha13ao";
         //System.out.println(getText("http://calendar.cbs.dk/events.php/"+userID+"/"+e.getKey(userID)+".json"));
-        GetCalendarData gcd = new GetCalendarData();
-        gcd.getuserevents("anha13ao");
+
+		SwitchMethods sw = new SwitchMethods();
+		
+		String reply = sw.getEvent("1");
+		//String reply = sw.getCalendar("testCalendar");
+		//String reply = sw.createEvent("1", "Solbjerg", "1", "2008-11-11 13:23:44", "2008-11-11 13:23:44", "testevent", "dette er mit nye test event", "0", "1");
+		
+		System.out.println(reply);
 	}
 	public static String getText(String url) throws Exception {
         URL website = new URL(url);

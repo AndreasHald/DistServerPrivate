@@ -12,6 +12,7 @@ import JsonClasses.AuthUser;
 import JsonClasses.CalendarInfo;
 import JsonClasses.CreateCalender;
 import JsonClasses.DeleteCalender;
+import JsonClasses.createEvent;
 import JsonClasses.getEvents;
 
 import com.google.gson.*;
@@ -70,13 +71,13 @@ public class GiantSwitch {
 		/*************
 		 ** CALENDAR **
 		 *************/
-		case "createCalender":
+		case "createCalender": // SKAL TESTES
 			CreateCalender CC = (CreateCalender)gson.fromJson(jsonString, CreateCalender.class);
 			System.out.println(CC.getCalenderName()+ "Den har lagt det nye ind i klassen");
 			answer = SW.createNewCalender(CC.getUserName(), CC.getCalenderName(), CC.getPublicOrPrivate());
 			break;
 		
-		case "deleteCalender":
+		case "deleteCalender": // SKAL TESTES
 			DeleteCalender DC = (DeleteCalender)gson.fromJson(jsonString, DeleteCalender.class);
 			System.out.println(DC.getCalenderName()+ "Den har lagt det nye ind i klassen");
 			answer = SW.deleteCalender(DC.getUserName(), DC.getCalenderName());
@@ -87,7 +88,7 @@ public class GiantSwitch {
 			
 			break;
 			
-		case "getCalender": 
+		case "getCalender": // VIRKER (TESTET)
 			System.out.println("Recieved getCalender");
 			CalendarInfo ci = (CalendarInfo)gson.fromJson(jsonString, CalendarInfo.class);
 			answer = SW.getCalendar(ci.getCalenderName());
@@ -112,12 +113,16 @@ public class GiantSwitch {
 			}
 			break;
 
-		case "createEvent": // ANDREAS ARBEJDER HER
-			System.out.println("Recieved saveEvent");
+		case "createEvent": // VIRKER (TESTET)
+			System.out.println("Recieved createEvent");
+			createEvent ce = (createEvent)gson.fromJson(jsonString, createEvent.class);
+			answer = SW.createEvent( ce.gettype(), ce.getlocation(), ce.getcreatedby(), ce.getstartTime(), ce.getendTime(), ce.getname(), ce.gettext(), ce.getcustomevent(), ce.getCalenderID());
 			break;
 
-		case "getEventInfo":
+		case "getEventInfo": // VIRKER (TESTET)
 			System.out.println("Recieved getEventInfo");
+			getEvents get = (getEvents)gson.fromJson(jsonString, getEvents.class);
+		    answer = SW.getEvent(get.getCalenderID());
 			break;
 			
 		case "deleteEvent":

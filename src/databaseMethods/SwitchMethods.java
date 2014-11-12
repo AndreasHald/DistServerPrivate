@@ -89,7 +89,11 @@ public class SwitchMethods extends Model
 		
 		while(resultSet.next())
 		{
-			reply = resultSet.toString();
+			reply = resultSet.getString("CalenderID");
+			reply += resultSet.getString("Name");
+			reply += resultSet.getString("Active");
+			reply += resultSet.getString("CreatedBy");
+			reply += resultSet.getString("PrivatePublic");
 		}
 		
 		if (reply.equals(""))
@@ -99,9 +103,14 @@ public class SwitchMethods extends Model
 		return reply;
 	}
 	
-	public String createEvent(String eventid,String type, String location, String createdby, String startTime, String endTime, String name, String text, String customevent,String CalenderID)
+	public String createEvent(String type, String location, String createdby, String startTime, String endTime, String name, String text, String customevent,String CalenderID) throws SQLException
 	{
-		return null;
+		String [] keys = {"type", "location", "createdby", "startTime", "endTime", "name", "text", "customevent", "CalenderID"};
+		String [] values = {type, location, createdby, startTime, endTime, name, text, customevent, CalenderID};
+		
+		qb.insertInto("events", keys).values(values).Execute();
+		
+		return  "sucess";
 	}
 	
 	public String removeCalender (String userName, String calenderName) throws SQLException
@@ -153,18 +162,18 @@ public class SwitchMethods extends Model
 	{	
 		qb = new QueryBuilder();
 		
-		resultSet = qb.selectFrom("events").where("CalendarID", "=", CalendarID).ExecuteQuery();
+		resultSet = qb.selectFrom("events").where("CalenderID", "=", CalendarID).ExecuteQuery();
 		
 		if (resultSet.next())
 		{
 			String reply = resultSet.getString("type");
-			reply += resultSet.getString("title");
-			reply += resultSet.getString("description");
 			reply += resultSet.getString("location");
 			reply += resultSet.getString("createdby");
-			reply += resultSet.getString("description");
-			reply += resultSet.getString("start");
-			reply += resultSet.getString("end");
+			reply += resultSet.getString("startTime");
+			reply += resultSet.getString("endTime");
+			reply += resultSet.getString("name");
+			reply += resultSet.getString("text");
+			reply += resultSet.getString("customevent");
 			
 			return reply;
 		}
