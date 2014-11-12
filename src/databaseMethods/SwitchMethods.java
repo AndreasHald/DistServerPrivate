@@ -58,6 +58,18 @@ public class SwitchMethods extends Model
 		return authenticate;
 	}
 	
+	public String deleteEvent (String eventid)
+	{
+		try {
+			qb.deleteFrom("events").where("eventid", "=", eventid).Execute();
+			return "success";
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return "fejl";
+		}
+	}
+	
 	public void addNewCalender (String newCalenderName, String userName, int publicOrPrivate) throws SQLException
 	{
 		String [] keys = {"Name","active","CreatedBy","PrivatePublic"};
@@ -166,7 +178,8 @@ public class SwitchMethods extends Model
 		
 		if (resultSet.next())
 		{
-			String reply = resultSet.getString("type");
+			String reply = resultSet.getString("eventid");
+			reply = resultSet.getString("type");
 			reply += resultSet.getString("location");
 			reply += resultSet.getString("createdby");
 			reply += resultSet.getString("startTime");

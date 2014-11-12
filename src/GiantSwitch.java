@@ -96,7 +96,7 @@ public class GiantSwitch {
 			answer = SW.getCalendar(ci.getCalenderName());
 			break;
 
-		case "getEvents":
+		case "getEvents": // SKAL TESTES
 			System.out.println("Recieved getEvents");
 			//Event GE = (Event)gson.fromJson(jsonString, Event.class);
 			//try {
@@ -115,7 +115,7 @@ public class GiantSwitch {
 			}
 			break;
 
-		case "createEvent": // VIRKER (TESTET)
+		case "createEvent": // VIRKER (TESTET) SKAL OPDATERES MHT SAVE EVENT
 			System.out.println("Recieved createEvent");
 			createEvent ce = (createEvent)gson.fromJson(jsonString, createEvent.class);
 			answer = SW.createEvent( ce.gettype(), ce.getlocation(), ce.getcreatedby(), ce.getstartTime(), ce.getendTime(), ce.getname(), ce.gettext(), ce.getcustomevent(), ce.getCalenderID());
@@ -129,6 +129,8 @@ public class GiantSwitch {
 			
 		case "deleteEvent":
 			System.out.println("Recieved deleteEvent");
+			getEvents det = (getEvents)gson.fromJson(jsonString, getEvents.class);
+			answer = SW.deleteEvent(det.geteventid());
 		
 		case "saveNote":
 			System.out.println("Recieved saveNote");
@@ -138,7 +140,7 @@ public class GiantSwitch {
 			System.out.println("Recieved getNote");
 			break;
 			
-		case "deleteNote":
+		case "deleteNote": // VIRKER
 			DeleteNote DN = new DeleteNote();
 			
 			SW.deleteNote(DN.getNoteId());

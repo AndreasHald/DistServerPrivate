@@ -34,12 +34,13 @@ CREATE TABLE IF NOT EXISTS events
 (
 	eventid int NOT NULL AUTO_INCREMENT,
 	type int NOT NULL,
-	location int,
+	location varchar(200),
 	createdby int NOT NULL,
 	startTime datetime NOT NULL,
 	endTime datetime NOT NULL,
-	name varchar(0) NOT NULL,
+	name varchar(200) NOT NULL,
 	text text NOT NULL,
+	active int NOT NULL DEFAULT '1',
 	-- Decides wether the event is an import-event or user created
 	-- 
 	customevent boolean COMMENT 'Decides wether the event is an import-event or user created

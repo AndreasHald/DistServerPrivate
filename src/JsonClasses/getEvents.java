@@ -5,7 +5,17 @@ public class getEvents implements java.io.Serializable {
 	private  final long serialVersionUID = 2L;
 	private String overallID = "getEvents";
 	private String CalenderID;
+	private String eventid;
 	
+	
+	public String geteventid()
+	{
+		return eventid;
+	}
+	public void seteventid(String eventid)
+	{
+		this.eventid = eventid;
+	}
 	
 	public String getoverallID()
 	{
