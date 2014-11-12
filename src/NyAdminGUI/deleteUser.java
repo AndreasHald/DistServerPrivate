@@ -14,7 +14,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class deleteEvent extends JFrame {
+public class deleteUser extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -23,7 +23,7 @@ public class deleteEvent extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public deleteEvent() {
+	public deleteUser() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 550, 700);
 		contentPane = new JPanel();
@@ -31,12 +31,12 @@ public class deleteEvent extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnRemoveEvent = new JButton("Remove Event");
+		JButton btnRemoveEvent = new JButton("Remove user");
 		btnRemoveEvent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			//searchresult.getSelecetedIndex();
-			//Logic.removeEvent(removeEventID)	<-- Method missing for removing event
+			//Logic.removeUser();
 			dispose();
 			}
 		});
@@ -48,7 +48,7 @@ public class deleteEvent extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblSearchEvent = new JLabel("Enter event name");
+		JLabel lblSearchEvent = new JLabel("Enter username");
 		lblSearchEvent.setBounds(19, 70, 129, 16);
 		contentPane.add(lblSearchEvent);
 		
@@ -56,12 +56,11 @@ public class deleteEvent extends JFrame {
 		btnSearch.setBounds(226, 93, 206, 29);
 		contentPane.add(btnSearch);
 		
-		String [] columnNames = {"Event Name", "Created by"};
+		String [] columnNames = {"Username", "Date created", "Class"};
 		
 		//DB should fill the table with data
 		Object data [][] = {
-				{"Distributed Systems eksamen", "Henrik Thorn"},
-				{"Cafe Nexus", "Jonathan Kwok"},
+				{"Jonathan Kwok", "12/11/2014", "DØK 13"},
 				{null, null, null}
 		};
 		JTable searchResult = new JTable (data, columnNames);
@@ -69,15 +68,15 @@ public class deleteEvent extends JFrame {
 		contentPane.add(searchResult);
 		searchResult.setRowHeight(30);
 		
-		JLabel lblEventName = new JLabel("Event Name");
+		JLabel lblEventName = new JLabel("Userame");
 		lblEventName.setBounds(19, 138, 86, 16);
 		contentPane.add(lblEventName);
 		
-		JLabel lblCreatedBy = new JLabel("Created By");
+		JLabel lblCreatedBy = new JLabel("Date created");
 		lblCreatedBy.setBounds(269, 138, 95, 16);
 		contentPane.add(lblCreatedBy);
 		
-		JLabel lblForceRemoveEvent = new JLabel("Force remove event");
+		JLabel lblForceRemoveEvent = new JLabel("Force remove user");
 		lblForceRemoveEvent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblForceRemoveEvent.setBounds(19, 18, 256, 34);
 		contentPane.add(lblForceRemoveEvent);

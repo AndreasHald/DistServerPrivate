@@ -1,6 +1,7 @@
 package NyAdminGUI;
 
 import java.util.Calendar;
+import java.sql.*;
 
 public class Logic {
 	
@@ -19,9 +20,24 @@ public class Logic {
 	
 	public static boolean createUser(String username, String password, String passwordRepeat){
 	
+		Connection conn = null;
+		Statement stmt = null;
+		//Resultset rs = null;
+		String sql = "INSERT INTO Users (username, password)";
+		
 		if(password.equals(passwordRepeat)){
 			
 			try{
+				
+				
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
+				String connectionUrl = "jdbc:mysql://localhost:3306/bcbs";
+				String connectionUser = "root";
+				String connectionPswd = "";
+				
+				conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPswd);
+				stmt = ((Connection) conn).createStatement();
+				PreparedStatement pstmt = ((Connection) conn).prepareStatement(sql);
 				
 				//User should be added to DB here
 				errorMessage userAdded = new errorMessage("The user -" + username + "- has been added!");
@@ -30,6 +46,7 @@ public class Logic {
 			}catch (Exception e){
 				return false;
 			}
+			
 		}else{
 			errorMessage passwordnotmatch = new errorMessage("Make sure that the passwords match!");
 			passwordnotmatch.setVisible(true);				
@@ -66,6 +83,10 @@ public class Logic {
 			return false;
 			}
 
+	}
+	
+	public static void removeUser(String username){
+		//Method for removing user goes here <==
 	}
 	
 	 

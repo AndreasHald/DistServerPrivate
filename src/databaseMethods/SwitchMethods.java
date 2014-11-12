@@ -25,6 +25,15 @@ public class SwitchMethods extends Model
 	 * @throws SQLException
 	 */
 
+	public boolean createuser(String userName, String password) throws SQLException
+	{
+		String[] keys = {"email", "active", "password"};
+		String[] values = {userName, "1", password};
+		qb.insertInto("users", keys).values(values).Execute();
+		return true;
+	}
+	
+	
 	public String createNewCalender (String userName, String calenderName, int privatePublic) throws SQLException
 	{
 		String stringToBeReturned ="";
@@ -42,6 +51,7 @@ public class SwitchMethods extends Model
 		
 		return stringToBeReturned;
 	}
+	
 	
 	public boolean authenticateNewCalender(String newCalenderName) throws SQLException
 	{

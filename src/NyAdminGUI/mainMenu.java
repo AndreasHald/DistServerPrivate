@@ -104,6 +104,13 @@ public class mainMenu extends JFrame {
 		contentPane.add(btnCreateUser);
 		
 		JButton btnDeleteUser = new JButton("Delete user");
+		btnDeleteUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				deleteUser deleteuser = new deleteUser();
+				deleteuser.setVisible(true);
+			}
+		});
 		btnDeleteUser.setBounds(6, 152, 117, 29);
 		contentPane.add(btnDeleteUser);
 		
@@ -111,10 +118,8 @@ public class mainMenu extends JFrame {
 		btnDeleteEvent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			
 				deleteEvent deleteevent = new deleteEvent();
 				deleteevent.setVisible(true);
-					
 			}
 		});
 		btnDeleteEvent.setBounds(6, 111, 117, 29);
