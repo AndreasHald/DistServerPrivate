@@ -7,6 +7,7 @@ import java.sql.Statement;
 import model.QOTD.QOTDModel;
 import model.calendar.Event;
 import model.calendar.GetCalendarData;
+import model.calendar.cbsevent;
 import model.note.Note;
 import JsonClasses.AuthUser;
 import JsonClasses.CalendarInfo;
@@ -104,10 +105,10 @@ public class GiantSwitch {
 			//	answer = "Sql Error";
 			//	e.printStackTrace();
 			//}
-			getEvents ge = gson.fromJson(jsonString, getEvents.class);
+			cbsevent ev = (cbsevent)gson.fromJson(jsonString, cbsevent.class);
 			GetCalendarData gcd = new GetCalendarData();
 			try {
-				answer = gcd.getuserevents(ge.getusername());
+				answer = gcd.getuserevents(ev.getusername());
 			} catch (Exception e) {
 				answer = "Error";
 				e.printStackTrace();
