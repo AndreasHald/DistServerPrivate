@@ -8,10 +8,11 @@ public class testing {
 
 	public static void main(String[] args) throws Exception {
 		
-		EncryptUserID e = new EncryptUserID();
-		String userID = "anha13ao";
-        System.out.println(getText("http://calendar.cbs.dk/events.php/"+userID+"/"+e.getKey(userID)+".json"));
-        
+		//EncryptUserID e = new EncryptUserID();
+		//String userID = "anha13ao";
+        //System.out.println(getText("http://calendar.cbs.dk/events.php/"+userID+"/"+e.getKey(userID)+".json"));
+        GetCalendarData gcd = new GetCalendarData();
+        gcd.getuserevents("anha13ao");
 	}
 	public static String getText(String url) throws Exception {
         URL website = new URL(url);

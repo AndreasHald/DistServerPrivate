@@ -6,11 +6,13 @@ import java.sql.Statement;
 
 import model.QOTD.QOTDModel;
 import model.calendar.Event;
+import model.calendar.GetCalendarData;
 import model.note.Note;
 import JsonClasses.AuthUser;
 import JsonClasses.CalendarInfo;
 import JsonClasses.CreateCalender;
 import JsonClasses.DeleteCalender;
+import JsonClasses.getEvents;
 
 import com.google.gson.*;
 
@@ -91,11 +93,19 @@ public class GiantSwitch {
 
 		case "getEvents":
 			System.out.println("Recieved getEvents");
-			Event GE = (Event)gson.fromJson(jsonString, Event.class);
+			//Event GE = (Event)gson.fromJson(jsonString, Event.class);
+			//try {
+			//	answer = SW.getEvent(GE.getCalendarID());
+			//} catch (Exception e) {
+			//	answer = "Sql Error";
+			//	e.printStackTrace();
+			//}
+			getEvents ge = gson.fromJson(jsonString, getEvents.class);
+			GetCalendarData gcd = new GetCalendarData();
 			try {
-				answer = SW.getEvent(GE.getCalendarID());
+				answer = gcd.getuserevents(ge.getusername());
 			} catch (Exception e) {
-				answer = "Sql Error";
+				answer = "Error";
 				e.printStackTrace();
 			}
 			break;

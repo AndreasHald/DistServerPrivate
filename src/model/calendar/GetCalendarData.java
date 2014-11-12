@@ -58,4 +58,11 @@ public class GetCalendarData {
             System.out.println(events.getEvents().get(i).getActivityid());
         }
     }
+
+	public String getuserevents(String userID) throws Exception {
+		userID ="anha13ao";
+        String json = readUrl("http://calendar.cbs.dk/events.php/"+userID+"/"+e.getKey(userID)+".json");
+        System.out.println(json);
+		return null;
+	}
 }
