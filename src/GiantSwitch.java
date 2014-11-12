@@ -12,6 +12,7 @@ import JsonClasses.AuthUser;
 import JsonClasses.CalendarInfo;
 import JsonClasses.CreateCalender;
 import JsonClasses.DeleteCalender;
+import JsonClasses.DeleteNote;
 import JsonClasses.createEvent;
 import JsonClasses.getEvents;
 
@@ -83,7 +84,7 @@ public class GiantSwitch {
 			answer = SW.deleteCalender(DC.getUserName(), DC.getCalenderName());
 			break;
 		
-		case "saveImportedCalender": // OVERFLØDIG
+		case "saveImportedCalender": // OVERFLï¿½DIG
 			
 			
 			break;
@@ -137,7 +138,11 @@ public class GiantSwitch {
 			break;
 			
 		case "deleteNote":
+			DeleteNote DN = new DeleteNote();
+			
+			SW.deleteNote(DN.getNoteId());
 			System.out.println("Recieved deleteNote");
+			
 			break;
 
 		/**********
