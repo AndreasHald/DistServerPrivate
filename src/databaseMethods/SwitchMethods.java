@@ -80,13 +80,14 @@ public class SwitchMethods extends Model
 		}
 	}
 	
-	public void addNewCalender (String newCalenderName, String userName, int publicOrPrivate) throws SQLException
+	public String addNewCalender (String newCalenderName, String userName, int publicOrPrivate) throws SQLException
 	{
 		String [] keys = {"Name","active","CreatedBy","PrivatePublic"};
-		String [] values = {newCalenderName,"1",userName, Integer.toString(publicOrPrivate)};
-		qb.update("calendar", keys, values).all().Execute();
+		String [] values = {userName,"1",newCalenderName, Integer.toString(publicOrPrivate)};
+		qb.insertInto("calender", keys).values(values).Execute();
 		
-//		doUpdate("insert into test.calender (Name, Active, CreatedBy, PrivatePublic) VALUES ('"+newCalenderName+"', '1', '"+userName+"', '"+publicOrPrivate+"');");
+		return "sucess";
+		
 	}
 	/**
 	 * Allows the client to delete a calendar
@@ -98,6 +99,7 @@ public class SwitchMethods extends Model
 	{
 		String stringToBeReturned ="";
 		testConnection();
+		System.out.println(userName + calenderName);
 		stringToBeReturned = removeCalender(userName, calenderName);
 
 		return stringToBeReturned;
@@ -132,7 +134,7 @@ public class SwitchMethods extends Model
 		
 		qb.insertInto("events", keys).values(values).Execute();
 		
-		return  "sucess";
+		return  "1"; 
 	}
 	
 	public String removeCalender (String userName, String calenderName) throws SQLException
@@ -140,20 +142,24 @@ public class SwitchMethods extends Model
 		String stringToBeReturend = "";
 		String usernameOfCreator ="";
 		String calenderExists = "";
-		resultSet = qb.selectFrom("Calender").where("Name", "=", calenderName).ExecuteQuery();
-				
+
+
+		resultSet = qb.selectFrom("calender").where("Name", "=", calenderName).ExecuteQuery();
+
 //				("select * from calender where Name = '"+calenderName+"';");
 		while(resultSet.next())
 		{
 			calenderExists = resultSet.toString();
 		}
+		System.out.println(calenderExists);
 		if(!calenderExists.equals(""))
 		{
+
 			String [] value = {"CreatedBy"};
 			resultSet = qb.selectFrom(value, "Calender").where("Name", "=", calenderName).ExecuteQuery();
 			while(resultSet.next())
 			{
-				usernameOfCreator = resultSet.toString();
+				usernameOfCreator = resultSet.getString("CreatedBy");
 				System.out.println(usernameOfCreator);
 			}
 			if(!usernameOfCreator.equals(userName))
@@ -163,8 +169,8 @@ public class SwitchMethods extends Model
 			else
 			{
 				String [] keys = {"Active"};
-				String [] values = {"2"};
-				qb.update("Calendar", keys, values).where("Name", "=", calenderName).Execute();
+				String [] values = {"0"};
+				qb.update("calender", keys, values).where("Name", "=", calenderName).Execute();
 				stringToBeReturend = "Calender has been set inactive";
 			}
 			stringToBeReturend = resultSet.toString();
@@ -183,7 +189,7 @@ public class SwitchMethods extends Model
 	public String getEvent(String CalendarID) throws SQLException
 	{	
 		qb = new QueryBuilder();
-		
+		System.out.println(CalendarID);
 		resultSet = qb.selectFrom("events").where("CalenderID", "=", CalendarID).ExecuteQuery();
 		
 		if (resultSet.next())
