@@ -2,16 +2,14 @@ package databaseMethods;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.print.attribute.DateTimeSyntax;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import JsonClasses.CalendarInfo;
 import model.Model;
 import model.QOTD.QOTDModel;
 import model.QueryBuild.QueryBuilder;
 import model.note.Note;
+import JsonClasses.CalendarInfo;
+
+import com.google.gson.Gson;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class SwitchMethods extends Model
 {
@@ -39,13 +37,13 @@ public class SwitchMethods extends Model
 	}
 	
 	
-	public String createNewCalender (String userName, String calenderName, int privatePublic) throws SQLException
+	public String createNewCalender (String userName, String calenderName, int privatePublic, String sharedto) throws SQLException, InterruptedException
 	{
 		String stringToBeReturned ="";
 		testConnection();
 		if(authenticateNewCalender(calenderName) == false)
 		{
-			addNewCalender(calenderName, userName, privatePublic);
+			addNewCalender(calenderName, userName, privatePublic, sharedto);
 			stringToBeReturned = "The new calender has been created!";
 		}
 		else
@@ -85,14 +83,56 @@ public class SwitchMethods extends Model
 		}
 	}
 	
-	public String addNewCalender (String newCalenderName, String userName, int publicOrPrivate) throws SQLException
+	public String addNewCalender (String newCalenderName, String userName, int publicOrPrivate, String sharedto) throws SQLException, InterruptedException
 	{
-		String [] keys = {"Name","active","CreatedBy","PrivatePublic"};
+		String [] keys = {"calname","active","CreatedBy","PrivatePublic"};
 		String [] values = {userName,"1",newCalenderName, Integer.toString(publicOrPrivate)};
 		qb.insertInto("calender", keys).values(values).Execute();
 		
+		if(sharedto != null)
+		{
+			share(sharedto,newCalenderName);
+		}
+		
 		return "sucess";
 		
+	}
+	
+	public void share (String sharedto, String calendarName) throws SQLException, InterruptedException
+	{
+		String calid = null;
+		String uid = null;
+		
+		
+		
+		System.out.println(calid);
+		
+		resultSet= qb.selectFrom("users").where("email", "=", sharedto).ExecuteQuery();
+		
+		while(resultSet.next())
+		{
+			uid = resultSet.getString("userid");
+		}
+		calid = S(calid, calendarName);
+		System.out.println(calid);
+		System.out.println(uid);
+		
+		String [] keys = {"userid","CalenderID"};
+		String [] values = {uid, calid};
+		qb.insertInto("userevents", keys).values(values).Execute();
+	}
+	
+	public String S(String calid, String calendarName) throws SQLException
+	{
+		resultSet= qb.selectFrom("Calender").where("calname", "=", calendarName).ExecuteQuery();
+
+		while(resultSet.next())
+		{
+			System.out.println("here");
+			calid = resultSet.getString("CalenderID");
+		}
+		
+		return calid;
 	}
 	/**
 	 * Allows the client to delete a calendar
@@ -112,25 +152,33 @@ public class SwitchMethods extends Model
 	
 	public String getCalendar (String userID) throws SQLException
 	{
-		String temp = "";
+		String [] temp = new String[6];
 		String reply = "";
-		CalendarInfo ci = new CalendarInfo();
+		ArrayList<CalendarInfo> Cal = new ArrayList<CalendarInfo>();;
 		
 		resultSet = qb.selectFrom("userevents").where("userid", "=", userID).ExecuteQuery();
-		
+		int counter = 0;
 		while(resultSet.next())
 		{
-			temp = resultSet.getString("CalenderID");
+			temp[counter] = resultSet.getString("CalenderID");
+			counter ++;
+			System.out.println("counter=" + counter);
 		}
 		
-		resultSet = qb.selectFrom("calender").where("CalenderID", "=", temp).ExecuteQuery();
-		
-		while(resultSet.next())
+		for (int i=0; i<5; i++)
 		{
-			ci.setCalenderName(resultSet.getString("Name"));
-			ci.setCalendarID(resultSet.getString("CalenderID"));
+			System.out.println(temp[i]);
+			resultSet = qb.selectFrom("Calender").where("CalenderID", "=", temp[i]).ExecuteQuery();
+			System.out.println("i= " + i);
+			while(resultSet.next())
+			{
+				Cal.add(new CalendarInfo(resultSet.getString("calname"),resultSet.getString("CalenderID")));
+				//Cal[i].setCalenderName(resultSet.getString("calname"));
+				//Cal[i].setCalendarID(resultSet.getString("CalenderID"));
+			}
 		}
-		reply = gson.toJson(ci);
+		reply = gson.toJson(Cal);
+		
 		
 		if (reply.equals(""))
 		{
@@ -157,7 +205,7 @@ public class SwitchMethods extends Model
 		String calenderExists = "";
 
 
-		resultSet = qb.selectFrom("calender").where("Name", "=", calenderName).ExecuteQuery();
+		resultSet = qb.selectFrom("Calender").where("calname", "=", calenderName).ExecuteQuery();
 
 //				("select * from calender where Name = '"+calenderName+"';");
 		while(resultSet.next())
@@ -169,7 +217,7 @@ public class SwitchMethods extends Model
 		{
 
 			String [] value = {"CreatedBy"};
-			resultSet = qb.selectFrom(value, "Calender").where("Name", "=", calenderName).ExecuteQuery();
+			resultSet = qb.selectFrom(value, "Calender").where("calname", "=", calenderName).ExecuteQuery();
 			while(resultSet.next())
 			{
 				usernameOfCreator = resultSet.getString("CreatedBy");
@@ -183,18 +231,14 @@ public class SwitchMethods extends Model
 			{
 				String [] keys = {"Active"};
 				String [] values = {"0"};
-				qb.update("calender", keys, values).where("Name", "=", calenderName).Execute();
-				stringToBeReturend = "Calender has been set inactive";
+				qb.update("calender", keys, values).where("calname", "=", calenderName).Execute();
+				stringToBeReturend = "Calender has been deleted";
 			}
-			stringToBeReturend = resultSet.toString();
 		}
 		else
 		{
 			stringToBeReturend = "The calender you are trying to delete, does not exists.";
 		}
-		
-		
-		
 		return stringToBeReturend;
 	}
 	

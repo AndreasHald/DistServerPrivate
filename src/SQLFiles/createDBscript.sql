@@ -7,7 +7,7 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 CREATE TABLE IF NOT EXISTS Calender
 (
 	CalenderID int NOT NULL AUTO_INCREMENT,
-	Name varchar(255) NOT NULL,
+	calname varchar(255) NOT NULL,
 	Active tinyint,
 	CreatedBy varchar(255) NOT NULL,
 	-- 1 = public

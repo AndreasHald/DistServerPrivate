@@ -8,6 +8,10 @@ public class CalendarInfo implements java.io.Serializable {
 		private String userName;
 		private int publicOrPrivate;
 		
+		public CalendarInfo(String string, String string2) {
+			this.calenderName = string;
+			this.CalendarID = string2;
+		}
 		//Getters and setters for everything, bitch
 		public String getOverallID() {
 			return overallID;

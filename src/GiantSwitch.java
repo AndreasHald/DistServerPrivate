@@ -27,7 +27,7 @@ public class GiantSwitch {
 	
 	
 	
-	public String GiantSwitchMethod(String jsonString) throws SQLException {
+	public String GiantSwitchMethod(String jsonString) throws SQLException, InterruptedException {
 
 		//Events eventsKlasse = new Events(0, 0, 0, jsonString, jsonString, jsonString, jsonString, jsonString);
 
