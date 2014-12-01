@@ -7,6 +7,7 @@ public class CreateCalender implements java.io.Serializable
 	private String calenderName;
 	private String userName;
 	private int publicOrPrivate;
+	private String sharedto;
 	
 	//Getters and setters for everything, bitch
 	public String getOverallID() {
@@ -32,6 +33,13 @@ public class CreateCalender implements java.io.Serializable
 	}
 	public void setPublicOrPrivate(int publicPrivate) {
 		this.publicOrPrivate = publicPrivate;
+	}
+	
+	public String getsharedto() {
+		return sharedto;
+	}
+	public void setsharedto(String sharedto) {
+		this.sharedto = sharedto;
 	}
 
 }

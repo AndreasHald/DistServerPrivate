@@ -77,7 +77,7 @@ public class GiantSwitch {
 		case "createCalender": // SKAL TESTES
 			CreateCalender CC = (CreateCalender)gson.fromJson(jsonString, CreateCalender.class);
 			System.out.println(CC.getCalenderName()+ "Den har lagt det nye ind i klassen");
-			answer = SW.addNewCalender(CC.getUserName(), CC.getCalenderName(), CC.getPublicOrPrivate());
+			answer = SW.addNewCalender(CC.getUserName(), CC.getCalenderName(), CC.getPublicOrPrivate(), CC.getsharedto());
 			break;
 		
 		case "deleteCalender": // VIRKER (TESTET)
@@ -93,7 +93,7 @@ public class GiantSwitch {
 		case "getCalender": // VIRKER (TESTET)
 			System.out.println("Recieved getCalender");
 			CalendarInfo ci = (CalendarInfo)gson.fromJson(jsonString, CalendarInfo.class);
-			answer = SW.getCalendar(ci.getCalenderName());
+			answer = SW.getCalendar(ci.getUserName());
 			break;
 
 		case "getEvents": // SKAL TESTES
@@ -108,7 +108,7 @@ public class GiantSwitch {
 			cbsevent ev = (cbsevent)gson.fromJson(jsonString, cbsevent.class);
 			GetCalendarData gcd = new GetCalendarData();
 			try {
-				answer = gcd.getuserevents(ev.getusername());
+				//answer = gcd.getuserevents(ev.getusername());
 			} catch (Exception e) {
 				answer = "Error";
 				e.printStackTrace();

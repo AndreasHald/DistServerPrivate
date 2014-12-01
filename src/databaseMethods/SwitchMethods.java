@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import javax.print.attribute.DateTimeSyntax;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import JsonClasses.CalendarInfo;
 import model.Model;
 import model.QOTD.QOTDModel;
 import model.QueryBuild.QueryBuilder;
@@ -13,6 +17,7 @@ public class SwitchMethods extends Model
 {
 	QueryBuilder qb = new QueryBuilder();
 	QOTDModel qm = new QOTDModel();
+	Gson gson = new Gson();
 	
 
 	
@@ -105,25 +110,33 @@ public class SwitchMethods extends Model
 		return stringToBeReturned;
 	}
 	
-	public String getCalendar (String calendarName) throws SQLException
+	public String getCalendar (String userID) throws SQLException
 	{
+		String temp = "";
 		String reply = "";
+		CalendarInfo ci = new CalendarInfo();
 		
-		resultSet = qb.selectFrom("calender").where("Name", "=", calendarName).ExecuteQuery();
+		resultSet = qb.selectFrom("userevents").where("userid", "=", userID).ExecuteQuery();
 		
 		while(resultSet.next())
 		{
-			reply = resultSet.getString("CalenderID");
-			reply += resultSet.getString("Name");
-			reply += resultSet.getString("Active");
-			reply += resultSet.getString("CreatedBy");
-			reply += resultSet.getString("PrivatePublic");
+			temp = resultSet.getString("CalenderID");
 		}
+		
+		resultSet = qb.selectFrom("calender").where("CalenderID", "=", temp).ExecuteQuery();
+		
+		while(resultSet.next())
+		{
+			ci.setCalenderName(resultSet.getString("Name"));
+			ci.setCalendarID(resultSet.getString("CalenderID"));
+		}
+		reply = gson.toJson(ci);
 		
 		if (reply.equals(""))
 		{
 			reply = "Calendar wasn't found";
 		}
+		
 		return reply;
 	}
 	
@@ -240,7 +253,7 @@ public class SwitchMethods extends Model
 				// Hvis passwords matcher
 				if(resultSet.getString("password").equals(password))
 				{
-					return "0";
+					return "0" + resultSet.getString("userid");
 					// DU BLIVER LOGGET IND MEN CHECKER IKKE OM DU ER ADMIN
 					
 					//int userID = resultSet.getInt("userid");
@@ -271,12 +284,12 @@ public class SwitchMethods extends Model
 		
 		Note note = new Note();
 
-		return note.CreateNote(nId, text, cb, aId, eId);
+		//return note.CreateNote(nId, text, cb, aId, eId);
 	}
 	public String deleteNote(int nId){
 		Note note = new Note();
 		
-		return note.DeleteNote(nId);
+		//return note.DeleteNote(nId);
 	}
 	
 }
