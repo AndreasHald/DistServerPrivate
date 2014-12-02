@@ -14,6 +14,18 @@ public class createEvent implements java.io.Serializable {
 	private String customevent;
 	private String CalenderID;
 	
+	public createEvent(String eventid, String type, String location, String createdby, String startTime, String endTime, String name, String text) {
+		
+		this.eventid = eventid;
+		this.type = type;
+		this.location = location;
+		this.createdby = createdby;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.name = name;
+		this.text = text;
+	}
+	
 	public String getoverallID()
 	{
 		return overallID;

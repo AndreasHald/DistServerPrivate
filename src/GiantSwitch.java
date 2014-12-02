@@ -124,8 +124,8 @@ public class GiantSwitch {
 		case "getEventInfo": // VIRKER (TESTET)
 			System.out.println("Recieved getEventInfo");
 			getEvents get = (getEvents)gson.fromJson(jsonString, getEvents.class);
-			System.out.println(get.getCalendarID());
-		    answer = SW.getEvent(get.getCalendarID());
+			System.out.println(get.getCalenderID());
+		    answer = SW.getEvent(get.getCalenderID());
 			break;
 			
 		case "deleteEvent": // VIRKER (TESTET)

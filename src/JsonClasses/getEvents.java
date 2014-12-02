@@ -4,7 +4,7 @@ public class getEvents implements java.io.Serializable {
 
 	private  final long serialVersionUID = 2L;
 	private String overallID = "getEvents";
-	private String CalendarID;
+	private String CalenderID;
 	private String eventid;
 	
 	
@@ -26,13 +26,13 @@ public class getEvents implements java.io.Serializable {
 		this.overallID = overallID;
 	}
 	
-	public String getCalendarID()
+	public String getCalenderID()
 	{
-		return CalendarID;
+		return CalenderID;
 	}
-	public void setCalenderID(String CalendarID)
+	public void setCalenderID(String CalenderID)
 	{
-		this.CalendarID = CalendarID;
+		this.CalenderID = CalenderID;
 	}
 	
 }

@@ -85,6 +85,7 @@ public class SwitchMethods extends Model
 	
 	public String addNewCalender (String newCalenderName, String userName, int publicOrPrivate, String sharedto) throws SQLException, InterruptedException
 	{
+		// MANGLER USEREVENTS
 		String [] keys = {"calname","active","CreatedBy","PrivatePublic"};
 		String [] values = {userName,"1",newCalenderName, Integer.toString(publicOrPrivate)};
 		qb.insertInto("calender", keys).values(values).Execute();
@@ -152,7 +153,8 @@ public class SwitchMethods extends Model
 	
 	public String getCalendar (String userID) throws SQLException
 	{
-		String [] temp = new String[6];
+		String [] temp = new String[20];
+		String [] fin = new String[20];
 		String reply = "";
 		ArrayList<CalendarInfo> Cal = new ArrayList<CalendarInfo>();;
 		
@@ -162,21 +164,22 @@ public class SwitchMethods extends Model
 		{
 			temp[counter] = resultSet.getString("CalenderID");
 			counter ++;
-			System.out.println("counter=" + counter);
 		}
 		
-		for (int i=0; i<5; i++)
-		{
-			System.out.println(temp[i]);
-			resultSet = qb.selectFrom("Calender").where("CalenderID", "=", temp[i]).ExecuteQuery();
-			System.out.println("i= " + i);
+		
+			resultSet = qb.selectFrom("Calender").all().ExecuteQuery();
 			while(resultSet.next())
 			{
-				Cal.add(new CalendarInfo(resultSet.getString("calname"),resultSet.getString("CalenderID")));
-				//Cal[i].setCalenderName(resultSet.getString("calname"));
-				//Cal[i].setCalendarID(resultSet.getString("CalenderID"));
+				for (int i=0; i<temp.length; i++)
+				{
+				if(resultSet.getString("Active").equals("1") && resultSet.getString("CalenderID").equals(temp[i]))
+					
+					Cal.add(new CalendarInfo(resultSet.getString("calname"),resultSet.getString("CalenderID")));
+					//Cal[i].setCalenderName(resultSet.getString("calname"));
+					//Cal[i].setCalendarID(resultSet.getString("CalenderID"));
+				}
 			}
-		}
+		
 		reply = gson.toJson(Cal);
 		
 		
@@ -184,6 +187,8 @@ public class SwitchMethods extends Model
 		{
 			reply = "Calendar wasn't found";
 		}
+		
+		System.out.println(reply);
 		
 		return reply;
 	}
@@ -244,29 +249,23 @@ public class SwitchMethods extends Model
 	
 	
 	public String getEvent(String CalendarID) throws SQLException
-	{	
+	
+	{
+		String reply = "";
+		ArrayList<JsonClasses.createEvent> CE = new ArrayList<JsonClasses.createEvent>();;
 		qb = new QueryBuilder();
 		System.out.println(CalendarID);
 		resultSet = qb.selectFrom("events").where("CalenderID", "=", CalendarID).ExecuteQuery();
-		
-		if (resultSet.next())
+		//Cal.add(new CalendarInfo(resultSet.getString("calname"),resultSet.getString("CalenderID")));
+		//CE.add(new JsonClasses.createEvent
+		while (resultSet.next())
 		{
-			String reply = resultSet.getString("eventid");
-			reply = resultSet.getString("type");
-			reply += resultSet.getString("location");
-			reply += resultSet.getString("createdby");
-			reply += resultSet.getString("startTime");
-			reply += resultSet.getString("endTime");
-			reply += resultSet.getString("name");
-			reply += resultSet.getString("text");
-			reply += resultSet.getString("customevent");
-			
-			return reply;
+			if(resultSet.getString("Active").equals("1"))
+			{
+				CE.add(new JsonClasses.createEvent(resultSet.getString("eventid"), resultSet.getString("type"), resultSet.getString("location"), resultSet.getString("createdby"), resultSet.getString("startTime"), resultSet.getString("endTime"), resultSet.getString("name"), resultSet.getString("text")));
+			}
 		}
-		else
-		{
-			return "The Calendar doens't exist";
-		}
+		return reply = gson.toJson(CE);
 	}
 	
 	// Metoden faar email og password fra switchen (udtrukket fra en json) samt en boolean der skal saettes til true hvis det er serveren der logger paa, og false hvis det er en klient
