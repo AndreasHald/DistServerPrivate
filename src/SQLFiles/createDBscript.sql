@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS notes
 	eventId int NOT NULL,
 	createdBy varchar(255) NOT NULL,
 	text text,
-	active int NOT NULL DEFAULT '1'
+	active int NOT NULL DEFAULT '1',
 	PRIMARY KEY (noteid)
 );
 
@@ -104,10 +104,27 @@ INSERT INTO `cbscalendar`.`users`
 `active`,
 `password`)
 VALUES
-("admin@admin.dk",
+("anha13ao",
 true,
-"d6YSr320JnLXlp8YYxUcNQ==");
+"1234");
 
+INSERT INTO `cbscalendar`.`users`
+(`email`,
+`active`,
+`password`)
+VALUES
+("mino13ab",
+true,
+"1234");
+
+INSERT INTO `cbscalendar`.`users`
+(`email`,
+`active`,
+`password`)
+VALUES
+("jape13ad",
+true,
+"1234");
 
 /* Create dummy calendar */
 INSERT INTO `cbscalendar`.`calender`
@@ -118,7 +135,7 @@ INSERT INTO `cbscalendar`.`calender`
 VALUES
 ("testCalendar",
 1,
-"Admin@admin.dk",
+"anha13ao",
 1);
 
 
