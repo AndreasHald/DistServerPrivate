@@ -13,6 +13,7 @@ import model.note.Note;
 import JsonClasses.AuthUser;
 import JsonClasses.CalendarInfo;
 import JsonClasses.CreateCalender;
+import JsonClasses.CreateNote;
 import JsonClasses.DeleteCalender;
 import JsonClasses.DeleteNote;
 import JsonClasses.createEvent;
@@ -135,6 +136,9 @@ public class GiantSwitch {
 		
 		case "saveNote":
 			System.out.println("Recieved saveNote");
+			
+			CreateNote cn = (CreateNote)gson.fromJson(jsonString, CreateNote.class);
+			answer = SW.createNote(cn.getNoteEventID(), cn.getNoteCreatedBy(), cn.getNoteText());
 			break;
 
 		case "getNote":

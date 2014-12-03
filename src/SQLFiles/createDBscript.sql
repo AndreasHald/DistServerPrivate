@@ -65,8 +65,7 @@ CREATE TABLE IF NOT EXISTS notes
 	eventId int NOT NULL,
 	createdBy varchar(255) NOT NULL,
 	text text,
-	dateTime datetime NOT NULL default NOW(),
-	active int NOT NULL,
+	active int NOT NULL DEFAULT '1'
 	PRIMARY KEY (noteid)
 );
 

@@ -322,12 +322,20 @@ public class SwitchMethods extends Model
 		}
 	}
 	
-	public String createNote(int nId, String text, String cb, int aId, int eId){
-		String stringToBeReturned = "";
+	public String createNote(String eId, String cb, String text) throws SQLException{
 		
-		Note note = new Note();
+		String[] fields = {"eventId", "createdBy", "text"};
+		String[] values = {eId, cb, text};
+		
+		if(qb.insertInto("notes", fields).values(values).Execute())
+		{
+			return "New note created";
+		}
+		else
+		{
+			return "Could not create note. Please try again.";
+		}
 
-		//return note.CreateNote(nId, text, cb, aId, eId);
 	}
 	public String deleteNote(int nId){
 		Note note = new Note();
