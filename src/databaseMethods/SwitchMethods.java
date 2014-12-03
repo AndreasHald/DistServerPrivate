@@ -87,10 +87,10 @@ public class SwitchMethods extends Model
 	{
 		// MANGLER USEREVENTS
 		String [] keys = {"calname","active","CreatedBy","PrivatePublic"};
-		String [] values = {userName,"1",newCalenderName, Integer.toString(publicOrPrivate)};
+		String [] values = {newCalenderName,"1",userName, Integer.toString(publicOrPrivate)};
 		qb.insertInto("calender", keys).values(values).Execute();
 		
-		if(sharedto != null)
+		if(!sharedto.equals(" "))
 		{
 			share(sharedto,newCalenderName);
 		}
