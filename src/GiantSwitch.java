@@ -78,7 +78,7 @@ public class GiantSwitch {
 		case "createCalender": // SKAL TESTES
 			CreateCalender CC = (CreateCalender)gson.fromJson(jsonString, CreateCalender.class);
 			System.out.println(CC.getCalenderName()+ "Den har lagt det nye ind i klassen");
-			answer = SW.addNewCalender(CC.getUserName(), CC.getCalenderName(), CC.getPublicOrPrivate(), CC.getsharedto());
+			answer = SW.addNewCalender(CC.getCalenderName(), CC.getUserName(), CC.getPublicOrPrivate(), CC.getsharedto());
 			break;
 		
 		case "deleteCalender": // VIRKER (TESTET)

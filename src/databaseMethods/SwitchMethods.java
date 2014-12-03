@@ -104,10 +104,6 @@ public class SwitchMethods extends Model
 		String calid = null;
 		String uid = null;
 		
-		
-		
-		System.out.println(calid);
-		
 		resultSet= qb.selectFrom("users").where("email", "=", sharedto).ExecuteQuery();
 		
 		while(resultSet.next())
@@ -115,8 +111,6 @@ public class SwitchMethods extends Model
 			uid = resultSet.getString("userid");
 		}
 		calid = S(calid, calendarName);
-		System.out.println(calid);
-		System.out.println(uid);
 		
 		String [] keys = {"userid","CalenderID"};
 		String [] values = {uid, calid};
@@ -129,7 +123,6 @@ public class SwitchMethods extends Model
 
 		while(resultSet.next())
 		{
-			System.out.println("here");
 			calid = resultSet.getString("CalenderID");
 		}
 		
