@@ -6,6 +6,7 @@ import model.Model;
 import model.QOTD.QOTDModel;
 import model.QueryBuild.QueryBuilder;
 import model.note.Note;
+import model.note.NoteModel;
 import JsonClasses.CalendarInfo;
 
 import com.google.gson.Gson;
@@ -90,6 +91,8 @@ public class SwitchMethods extends Model
 		String [] values = {newCalenderName,"1",userName, Integer.toString(publicOrPrivate)};
 		qb.insertInto("calender", keys).values(values).Execute();
 		
+		share(userName, newCalenderName);
+		
 		if(!sharedto.equals(" "))
 		{
 			share(sharedto,newCalenderName);
@@ -159,7 +162,7 @@ public class SwitchMethods extends Model
 			counter ++;
 		}
 		
-		
+		System.out.println();
 			resultSet = qb.selectFrom("Calender").all().ExecuteQuery();
 			while(resultSet.next())
 			{
@@ -245,7 +248,7 @@ public class SwitchMethods extends Model
 	
 	{
 		String reply = "";
-		ArrayList<JsonClasses.createEvent> CE = new ArrayList<JsonClasses.createEvent>();;
+		ArrayList<JsonClasses.createEvent> CE = new ArrayList<JsonClasses.createEvent>();
 		qb = new QueryBuilder();
 		System.out.println(CalendarID);
 		resultSet = qb.selectFrom("events").where("CalenderID", "=", CalendarID).ExecuteQuery();
@@ -319,21 +322,42 @@ public class SwitchMethods extends Model
 		
 		String[] fields = {"eventId", "createdBy", "text"};
 		String[] values = {eId, cb, text};
-		
-		if(qb.insertInto("notes", fields).values(values).Execute())
-		{
-			return "New note created";
-		}
-		else
-		{
-			return "Could not create note. Please try again.";
-		}
+		qb.insertInto("notes", fields).values(values).Execute();
+		return "New note created";
+
 
 	}
-	public String deleteNote(int nId){
-		Note note = new Note();
+	public String deleteNote(String nId){
 		
-		//return note.DeleteNote(nId);
+		String stringToBeReturned = "";
+		
+		String [] keys = {"active"};
+		String [] values = {"0"};
+		try {
+			qb.update("notes", keys, values).where("noteId", "=", nId).Execute();
+			stringToBeReturned = "note has been deleted";
+		} catch (SQLException e) {
+			stringToBeReturned = "error";
+		}
+		
+		return stringToBeReturned;	
+	
 	}
 	
-}
+	public String getNote(String eID) throws SQLException
+	{
+		System.out.println("here eID = " + eID );
+		String toreturn = null;
+		ArrayList<JsonClasses.CreateNote> CN = new ArrayList<JsonClasses.CreateNote>();
+			resultSet = qb.selectFrom("notes").where("eventId", "= ", eID).ExecuteQuery();
+			while(resultSet.next())
+			{	
+				if(resultSet.getString("active").equals("1"))
+				{
+					CN.add(new JsonClasses.CreateNote(resultSet.getString("noteID"), resultSet.getString("text"), resultSet.getString("createdBy"), resultSet.getString("eventId")));
+				}
+			}
+				return toreturn = gson.toJson(CN);	
+	}
+	
+} 

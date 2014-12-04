@@ -18,10 +18,6 @@ public class testing {
 		QOTDModel QOTDKlasse = new QOTDModel();
 		String reply = QOTDKlasse.getQuote();
 		
-		//String reply = sw.deleteEvent("1");
-		//String reply = sw.getEvent("1");
-		//String reply = sw.getCalendar("testCalendar");
-		//String reply = sw.createEvent("1", "Solbjerg", "1", "2008-11-11 13:23:44", "2008-11-11 13:23:44", "testevent", "dette er mit nye test event", "0", "1");
 		
 		System.out.println(reply);
 	}

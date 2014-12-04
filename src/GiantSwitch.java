@@ -18,6 +18,7 @@ import JsonClasses.DeleteCalender;
 import JsonClasses.DeleteNote;
 import JsonClasses.createEvent;
 import JsonClasses.getEvents;
+import JsonClasses.getNote;
 
 import com.google.gson.*;
 
@@ -138,18 +139,23 @@ public class GiantSwitch {
 			System.out.println("Recieved saveNote");
 			
 			CreateNote cn = (CreateNote)gson.fromJson(jsonString, CreateNote.class);
-			answer = SW.createNote(cn.getNoteEventID(), cn.getNoteCreatedBy(), cn.getNoteText());
+			answer = SW.createNote(cn.geteventid(), cn.getNoteCreatedBy(), cn.getNoteText());
 			break;
 
 		case "getNote":
 			System.out.println("Recieved getNote");
+			
+			getNote gn = (getNote)gson.fromJson(jsonString, getNote.class);
+			answer = SW.getNote(gn.geteventid());
+			
 			break;
 			
-		case "deleteNote": // VIRKER
-			DeleteNote DN = new DeleteNote();
-			
-			SW.deleteNote(DN.getNoteId());
+		case "deleteNote": // VIRKER;
 			System.out.println("Recieved deleteNote");
+			
+			DeleteNote dn = (DeleteNote)gson.fromJson(jsonString, DeleteNote.class);
+			SW.deleteNote(dn.getNoteId());
+			
 			
 			break;
 

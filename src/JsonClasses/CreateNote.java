@@ -8,9 +8,15 @@ public class CreateNote implements java.io.Serializable
 	private String noteText;
 	private String noteCreatedBy;
 	private String noteActive;
-	private String noteEventID;
+	private String eventid;
 	
-	private int publicOrPrivate;
+	public CreateNote(String noteId, String noteText, String noteCreatedBy, String noteEventID) {
+		
+		this.noteId = noteId;
+		this.noteText = noteText;
+		this.noteCreatedBy = noteCreatedBy;
+		this.eventid = eventid;
+	}
 	
 	//Getters and setters 
 	public String getOverallID() {
@@ -48,18 +54,11 @@ public class CreateNote implements java.io.Serializable
 		this.noteCreatedBy = noteActive;
 	}
 	
-	public String getNoteEventID() {
-		return noteEventID;
+	public String geteventid() {
+		return eventid;
 	}
-	public void setNoteEventID(String noteEventID) {
-		this.noteEventID = noteEventID;
-	}
-	
-	public int getPublicOrPrivate() {
-		return publicOrPrivate;
-	}
-	public void setPublicOrPrivate(int publicPrivate) {
-		this.publicOrPrivate = publicPrivate;
+	public void seteventid(String eventid) {
+		this.eventid = eventid;
 	}
 
 }
